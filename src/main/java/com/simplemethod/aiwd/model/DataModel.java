@@ -11,6 +11,8 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "datamodel")
+@Getter
+@Setter
 public class DataModel implements Serializable {
 
     @Id

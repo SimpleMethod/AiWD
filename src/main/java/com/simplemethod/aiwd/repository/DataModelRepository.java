@@ -13,7 +13,8 @@ import java.util.List;
 @Repository
 @Transactional
 public interface DataModelRepository  extends JpaRepository<DataModel, Long> {
-    DataModel findAllById(long ID);
+
+    DataModel findById(long ID);
 
     @Query(value = "SELECT max(ct_score) FROM DataModel")
     public BigDecimal max_Ct_score();
@@ -41,4 +42,7 @@ public interface DataModelRepository  extends JpaRepository<DataModel, Long> {
 
     @Query(value = "SELECT avg(:args) FROM DataModel", nativeQuery = true)
     public DataModel getAvgValue(@Param("args") String args);
+
+
+
 }
