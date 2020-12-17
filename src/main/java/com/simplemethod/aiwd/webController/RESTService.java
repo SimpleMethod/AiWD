@@ -97,72 +97,102 @@ public class RESTService {
 
 
 
-        int ctAlive=0;
+        double ctAlive=0;
 
-        int tAlive=0;
+        double tAlive=0;
 
         int winRound=0;
 
-        float flashValue=0;
+        double flashValue=0;
 
-        float smokeValue=0;
+        double smokeValue=0;
 
         Query ctAliveQuery = entityManager.createQuery("SELECT avg (ct_players_alive) FROM DataModel WHERE map="+maps);
         double ctAliveValue = Double.parseDouble(ctAliveQuery.getResultList().get(0).toString());
 
-        if(ctAliveValue<=1)
+        if(ctAliveValue<0.5)
         {
-            ctAlive=0;
+            ctAlive=0.0;
         }
-        else if(ctAliveValue>=1 && ctAliveValue<=1.5)
+        else if(ctAliveValue>=0.5 && ctAliveValue<1.0)
         {
-            ctAlive=1;
+            ctAlive=0.5;
         }
-        else if(ctAliveValue>=1.5 && ctAliveValue<=2.5)
+        else if(ctAliveValue>=1 && ctAliveValue<1.5)
         {
-            ctAlive=2;
+            ctAlive=1.5;
         }
-        else if(ctAliveValue>=2.5 && ctAliveValue<=3.5)
+        else if(ctAliveValue>=1.5 && ctAliveValue<2.0)
         {
-            ctAlive=3;
+            ctAlive=2.0;
         }
-        else if(ctAliveValue>=3.5 && ctAliveValue<=4.5)
+        else if(ctAliveValue>=2.0 && ctAliveValue<2.5)
         {
-            ctAlive=4;
+            ctAlive=2.5;
         }
-        else if(ctAliveValue>=4.5 && ctAliveValue<=5.0)
+        else if(ctAliveValue>=2.5 && ctAliveValue<3.0)
         {
-            ctAlive=5;
+            ctAlive=3.0;
         }
-
-
+        else if(ctAliveValue>=3.0 && ctAliveValue<3.5)
+        {
+            ctAlive=3.5;
+        }
+        else if(ctAliveValue>=3.5 && ctAliveValue<4.0)
+        {
+            ctAlive=4.0;
+        }
+        else if(ctAliveValue>=4.0 && ctAliveValue<4.5)
+        {
+            ctAlive=4.5;
+        }
+        else
+        {
+            ctAlive=5.0;
+        }
 
         Query tAliveQuery = entityManager.createQuery("SELECT avg(t_players_alive) FROM DataModel WHERE map="+maps);
         double tAliveValue = Double.parseDouble(tAliveQuery.getResultList().get(0).toString());
 
-        if(tAliveValue<=1)
+        if(tAliveValue<0.5)
         {
-            tAlive=0;
+            tAlive=0.0;
         }
-        else if(tAliveValue>=1 && tAliveValue<=1.5)
+        else if(tAliveValue>=0.5 && tAliveValue<1.0)
         {
-            tAlive=1;
+            tAlive=0.5;
         }
-        else if(tAliveValue>=1.5 && tAliveValue<=2.5)
+        else if(tAliveValue>=1 && tAliveValue<1.5)
         {
-            tAlive=2;
+            tAlive=1.5;
         }
-        else if(tAliveValue>=2.5 && tAliveValue<=3.5)
+        else if(tAliveValue>=1.5 && tAliveValue<2.0)
         {
-            tAlive=3;
+            tAlive=2.0;
         }
-        else if(tAliveValue>=3.5 && tAliveValue<=4.5)
+        else if(tAliveValue>=2.0 && tAliveValue<2.5)
         {
-            tAlive=4;
+            tAlive=2.5;
         }
-        else if(tAliveValue>=4.5 && tAliveValue<=5.0)
+        else if(tAliveValue>=2.5 && tAliveValue<3.0)
         {
-            tAlive=5;
+            tAlive=3.0;
+        }
+        else if(tAliveValue>=3.0 && tAliveValue<3.5)
+        {
+            tAlive=3.5;
+        }
+        else if(tAliveValue>=3.5 && tAliveValue<4.0)
+        {
+            tAlive=4.0;
+        }
+        else if(tAliveValue>=4.0 && tAliveValue<4.5)
+        {
+            tAlive=4.5;
+        }
+        else
+        {
+            tAlive=5.0;
         }
 
 
@@ -174,51 +204,90 @@ public class RESTService {
 
         double flashSum=ctFlashValue+tFlashValue;
 
-        if(flashSum<=1)
+        if(flashSum<0.5)
         {
-            flashValue=0;
+            flashValue=0.0;
         }
-        else if(flashSum>=1 && flashSum<=1.5)
+        else if(flashSum>=0.5 && flashSum<1.0)
         {
-            flashValue=1;
+            flashValue=0.5;
         }
-        else if(flashSum>=1.5 && flashSum<=2.5)
+        else if(flashSum>=1 && flashSum<1.5)
         {
-            flashValue=2;
+            flashValue=1.0;
         }
-        else if(flashSum>=2.5 && flashSum<=3.5)
+        else if(flashSum>=1.5 && flashSum<2.0)
         {
-            flashValue=3;
+            flashValue=1.5;
         }
-        else if(flashSum>=3.5 && flashSum<=4.5)
+        else if(flashSum>=2.0 && flashSum<2.5)
         {
-            flashValue=4;
+            flashValue=2.0;
         }
-        else if(flashSum>=4.5 && flashSum<=5.5)
+        else if(flashSum>=2.5 && flashSum<3.0)
         {
-            flashValue=5;
+            flashValue=2.5;
         }
-        else if(flashSum>=5.5 && flashSum<=6.5)
+        else if(flashSum>=3.0 && flashSum<3.5)
         {
-            flashValue=6;
+            flashValue=3.0;
         }
-        else if(flashSum>=6.5 && flashSum<=7.5)
+        else if(flashSum>=3.5 && flashSum<4.0)
         {
-            flashValue=7;
+            flashValue=3.5;
         }
-        else if(flashSum>=7.5 && flashSum<=8.5)
+        else if(flashSum>=4.0 && flashSum<4.5)
         {
-            flashValue=8;
+            flashValue=4.0;
         }
-        else if(flashSum>=8.5 && flashSum<=9.5)
+        else if(flashSum>=4.5 && flashSum<5.0)
         {
-            flashValue=9;
+            flashValue=4.5;
         }
-        else if(flashSum>=9.5)
+        else if(flashSum>=5.0 && flashSum<5.5)
         {
-            flashValue=10;
+            flashValue=5.0;
         }
-
+        else if(flashSum>=5.5 && flashSum<6.0)
+        {
+            flashValue=5.5;
+        }
+        else if(flashSum>=6.0 && flashSum<6.5)
+        {
+            flashValue=6.0;
+        }
+        else if(flashSum>=6.5 && flashSum<7.0)
+        {
+            flashValue=6.5;
+        }
+        else if(flashSum>=7.0 && flashSum<7.5)
+        {
+            flashValue=7.0;
+        }
+        else if(flashSum>=7.5 && flashSum<8.0)
+        {
+            flashValue=7.5;
+        }
+        else if(flashSum>=8.0 && flashSum<8.5)
+        {
+            flashValue=8.0;
+        }
+        else if(flashSum>=8.5 && flashSum<9.0)
+        {
+            flashValue=8.5;
+        }
+        else if(flashSum>=9.0 && flashSum<9.5)
+        {
+            flashValue=9.0;
+        }
+        else if(flashSum>=9.5 && flashSum<10.0)
+        {
+            flashValue=9.5;
+        }
+        else
+        {
+            flashValue=10.0;
+        }
 
 
 
@@ -227,52 +296,91 @@ public class RESTService {
         Query tSmokeQuery = entityManager.createQuery("SELECT avg(t_grenade_smokegrenade) FROM DataModel WHERE map="+maps);
         double tSmokeValue = Double.parseDouble(tSmokeQuery.getResultList().get(0).toString());
 
-
         double smokeSumValue=ctSmokeValue+tSmokeValue;
 
-        if(smokeSumValue<=1)
+        if(smokeSumValue<0.5)
         {
-            smokeValue=0;
+            smokeValue=0.0;
         }
-        else if(smokeSumValue>=1 && smokeSumValue<=1.5)
+        else if(smokeSumValue>=0.5 && smokeSumValue<1.0)
         {
-            smokeValue=1;
+            smokeValue=0.5;
         }
-        else if(smokeSumValue>=1.5 && smokeSumValue<=2.5)
+        else if(smokeSumValue>=1 && smokeSumValue<1.5)
         {
-            smokeValue=2;
+            smokeValue=1.0;
         }
-        else if(smokeSumValue>=2.5 && smokeSumValue<=3.5)
+        else if(smokeSumValue>=1.5 && smokeSumValue<2.0)
         {
-            smokeValue=3;
+            smokeValue=1.5;
         }
-        else if(smokeSumValue>=3.5 && smokeSumValue<=4.5)
+        else if(smokeSumValue>=2.0 && smokeSumValue<2.5)
         {
-            smokeValue=4;
+            smokeValue=2.0;
         }
-        else if(smokeSumValue>=4.5 && smokeSumValue<=5.5)
+        else if(smokeSumValue>=2.5 && smokeSumValue<3.0)
         {
-            smokeValue=5;
+            smokeValue=2.5;
         }
-        else if(smokeSumValue>=5.5 && smokeSumValue<=6.5)
+        else if(smokeSumValue>=3.0 && smokeSumValue<3.5)
         {
-            smokeValue=6;
+            smokeValue=3.0;
         }
-        else if(smokeSumValue>=6.5 && smokeSumValue<=7.5)
+        else if(smokeSumValue>=3.5 && smokeSumValue<4.0)
         {
-            smokeValue=7;
+            smokeValue=3.5;
         }
-        else if(smokeSumValue>=7.5 && smokeSumValue<=8.5)
+        else if(smokeSumValue>=4.0 && smokeSumValue<4.5)
         {
-            smokeValue=8;
+            smokeValue=4.0;
         }
-        else if(smokeSumValue>=8.5 && smokeSumValue<=9.5)
+        else if(smokeSumValue>=4.5 && smokeSumValue<5.0)
         {
-            smokeValue=9;
+            smokeValue=4.5;
         }
-        else if(smokeSumValue>=9.5)
+        else if(smokeSumValue>=5.0 && smokeSumValue<5.5)
         {
-            smokeValue=10;
+            smokeValue=5.0;
+        }
+        else if(smokeSumValue>=5.5 && smokeSumValue<6.0)
+        {
+            smokeValue=5.5;
+        }
+        else if(smokeSumValue>=6.0 && smokeSumValue<6.5)
+        {
+            smokeValue=6.0;
+        }
+        else if(smokeSumValue>=6.5 && smokeSumValue<7.0)
+        {
+            smokeValue=6.5;
+        }
+        else if(smokeSumValue>=7.0 && smokeSumValue<7.5)
+        {
+            smokeValue=7.0;
+        }
+        else if(smokeSumValue>=7.5 && smokeSumValue<8.0)
+        {
+            smokeValue=7.5;
+        }
+        else if(smokeSumValue>=8.0 && smokeSumValue<8.5)
+        {
+            smokeValue=8.0;
+        }
+        else if(smokeSumValue>=8.5 && smokeSumValue<9.0)
+        {
+            smokeValue=8.5;
+        }
+        else if(smokeSumValue>=9.0 && smokeSumValue<9.5)
+        {
+            smokeValue=9.0;
+        }
+        else if(smokeSumValue>=9.5 && smokeSumValue<10.0)
+        {
+            smokeValue=9.5;
+        }
+        else
+        {
+            smokeValue=10.0;
         }
 
 

@@ -25,7 +25,7 @@ public class pngMaker {
    // @Value("classpath:static/1.png")
    // Resource resource;
 
-    public byte[] makePng( int ctAlive,int tAlive,int winRound,float flashValue, float smokeValue, int maps) throws IOException {
+    public byte[] makePng( double ctAlive,double tAlive,int winRound,double flashValue, double smokeValue, int maps) throws IOException {
 
 
 
@@ -38,16 +38,16 @@ public class pngMaker {
         BufferedImage winBI = ImageIO.read(  resourceLoader.getResource("classpath:static/5_"+Math.round(winRound)+".png").getFile());
         g.drawImage(winBI, 100, 0, null);
 
-        BufferedImage tAliveBI = ImageIO.read(  resourceLoader.getResource("classpath:static/2_"+ Math.round(tAlive)+".png").getFile());
+        BufferedImage tAliveBI = ImageIO.read(  resourceLoader.getResource("classpath:static/2_"+ tAlive+".png").getFile());
         g.drawImage(tAliveBI, 0, 10, null);
 
-        BufferedImage ctAliveBI = ImageIO.read(  resourceLoader.getResource("classpath:static/1_"+Math.round(ctAlive)+".png").getFile());
+        BufferedImage ctAliveBI = ImageIO.read(  resourceLoader.getResource("classpath:static/1_"+ctAlive+".png").getFile());
         g.drawImage(ctAliveBI, 260, 10, null);
 
-        BufferedImage flashBI = ImageIO.read(  resourceLoader.getResource("classpath:static/3_"+Math.round(flashValue)+".png").getFile());
+        BufferedImage flashBI = ImageIO.read(  resourceLoader.getResource("classpath:static/3_"+flashValue+".png").getFile());
         g.drawImage(flashBI, 0, 180, null);
 
-        BufferedImage smokeBI = ImageIO.read(  resourceLoader.getResource("classpath:static/4_"+Math.round(smokeValue)+".png").getFile());
+        BufferedImage smokeBI = ImageIO.read(  resourceLoader.getResource("classpath:static/4_"+smokeValue+".png").getFile());
         g.drawImage(smokeBI, 0, 220, null);
 
 
