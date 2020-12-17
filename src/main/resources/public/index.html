@@ -43,6 +43,41 @@
                 <button @click="ladowanie" type="button" class="btn btn-primary">Zaladuj plik</button>
             </div></div></div>
 
+    <h1>Dodanie nowego rekordu do bazy danych</h1><br>
+    <div id="addNewRecords">
+        <div class="row mb-3">
+            <div class="col-sm-4 themed-grid-col">
+                <input type="text" class="form-control" v-model="ct_players_alive" placeholder="ct_players_alive">
+                <input type="text" class="form-control" v-model="t_players_alive" placeholder="t_players_alive">
+                <input type="text" class="form-control" v-model="ct_grenade_flashbang" placeholder="ct_grenade_flashbang">
+                <input type="text" class="form-control" v-model="t_grenade_flashbang" placeholder="t_grenade_flashbang">
+                <input type="text" class="form-control" v-model="ct_grenade_smokegrenade" placeholder="ct_grenade_smokegrenade">
+                <input type="text" class="form-control" v-model="t_grenade_smokegrenade" placeholder="t_grenade_smokegrenade">
+                <input type="text" class="form-control" v-model="round_winner" placeholder="round_winner">
+                <input type="text" class="form-control" v-model="bomb_planted" placeholder="bomb_planted">
+                <input type="text" class="form-control" v-model="maps" placeholder="maps">
+                <button @click="addNew" type="button" class="btn btn-primary">Dodaj nowy rekord do bazy danych</button>
+            </div>
+        </div></div>
+
+    <h1>Edycja rekordu</h1><br>
+    <div id="editRecords">
+        <div class="row mb-3">
+            <div class="col-sm-4 themed-grid-col">
+                <input type="text" class="form-control" v-model="idRecord" placeholder="id rekordu bazy danych">
+                <input type="text" class="form-control" v-model="ct_players_alive" placeholder="ct_players_alive">
+                <input type="text" class="form-control" v-model="t_players_alive" placeholder="t_players_alive">
+                <input type="text" class="form-control" v-model="ct_grenade_flashbang" placeholder="ct_grenade_flashbang">
+                <input type="text" class="form-control" v-model="t_grenade_flashbang" placeholder="ct_grenade_flashbang">
+                <input type="text" class="form-control" v-model="ct_grenade_smokegrenade" placeholder="ct_grenade_flashbang">
+                <input type="text" class="form-control" v-model="t_grenade_smokegrenade" placeholder="ct_grenade_flashbang">
+                <input type="text" class="form-control" v-model="round_winner" placeholder="ct_grenade_flashbang">
+                <input type="text" class="form-control" v-model="bomb_planted" placeholder="bomb_planted">
+                <input type="text" class="form-control" v-model="maps" placeholder="maps">
+                <button @click="editRecord" type="button" class="btn btn-primary">Edytuj rekord</button>
+            </div>
+        </div></div>
+
     <h1>Wyznaczenie dla zmiennych statystyk opisowych</h1><br>
     <div id="app">
     <div class="row mb-3">
@@ -315,6 +350,69 @@
 </script>
 
 <script>
+
+    new Vue({
+        el:'#addNewRecords',
+        data:
+            {
+                data:"",
+                ct_players_alive:"",
+                t_players_alive:"",
+                bomb_planted:"",
+                ct_grenade_flashbang:"",
+                t_grenade_flashbang:"",
+                ct_grenade_smokegrenade:"",
+                t_grenade_smokegrenade:"",
+                round_winner:"",
+                maps:""
+
+            },
+        methods: {
+            addNew()
+            {
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:2137/loaddatamodel/',
+                    data: {ct_players_alive: this.ct_players_alive,t_players_alive:this.t_players_alive,bomb_planted:this.bomb_planted,ct_grenade_flashbang:this.ct_grenade_flashbang,t_grenade_flashbang:this.t_grenade_flashbang,ct_grenade_smokegrenade:this.ct_grenade_smokegrenade,t_grenade_smokegrenade:this.t_grenade_smokegrenade,round_winner:this.round_winner,maps:this.maps},
+                    headers: {
+                        Authorization: 'Bearer ' + "null"
+                    }
+                }).then(response => this.data = response.data);
+            }
+        }
+    })
+
+    new Vue({
+        el:'#editRecords',
+        data:
+            {
+                data:"",
+                ct_players_alive:"",
+                t_players_alive:"",
+                bomb_planted:"",
+                ct_grenade_flashbang:"",
+                t_grenade_flashbang:"",
+                ct_grenade_smokegrenade:"",
+                t_grenade_smokegrenade:"",
+                round_winner:"",
+                maps:"",
+                idRecord:""
+
+            },
+        methods: {
+            editRecord()
+            {
+                axios({
+                    method: 'put',
+                    url: 'http://localhost:2137/loaddatamodel/'+this.idRecord,
+                    data: {ct_players_alive: this.ct_players_alive,t_players_alive:this.t_players_alive,bomb_planted:this.bomb_planted,ct_grenade_flashbang:this.ct_grenade_flashbang,t_grenade_flashbang:this.t_grenade_flashbang,ct_grenade_smokegrenade:this.ct_grenade_smokegrenade,t_grenade_smokegrenade:this.t_grenade_smokegrenade,round_winner:this.round_winner,maps:this.maps},
+                    headers: {
+                        Authorization: 'Bearer ' + "null"
+                    }
+                }).then(response => this.data = response.data);
+            }
+        }
+    })
 
     new Vue({
         el:'#ladowanie',

@@ -41,7 +41,6 @@ public class EditDataJson {
     private float t_grenade_smokegrenade;
     @JsonProperty("round_winner")
     private int round_winner;
-
     @JsonProperty("maps")
     private int maps;
 
