@@ -1,5 +1,6 @@
 package com.simplemethod.aiwd.webController;
 
+import com.simplemethod.aiwd.Services.pngMaker;
 import com.simplemethod.aiwd.model.*;
 import com.simplemethod.aiwd.reader.FileReader;
 import com.simplemethod.aiwd.repository.DataModelRepository;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.validation.Valid;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -27,6 +29,9 @@ public class RESTService {
 
     @Autowired
     EntityManager entityManager;
+
+    @Autowired
+    pngMaker  pngMaker;
 
     @GetMapping(value = "/loaddata/{attribute}", produces = "application/json")
     @ResponseBody
@@ -84,6 +89,228 @@ public class RESTService {
         dataModel.setRound_winner(editDataJson.getRound_winner());
         dataModelRepository.save(dataModel);
         return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping(value = "/pngmarker/{maps}", produces = "image/png")
+    @ResponseBody
+    public ResponseEntity<byte[]> pngMarker(@Valid @PathVariable String maps) throws IOException {
+
+
+
+        int ctAlive=0;
+
+        int tAlive=0;
+
+        int winRound=0;
+
+        float flashValue=0;
+
+        float smokeValue=0;
+
+        Query ctAliveQuery = entityManager.createQuery("SELECT avg (ct_players_alive) FROM DataModel WHERE map="+maps);
+        double ctAliveValue = Double.parseDouble(ctAliveQuery.getResultList().get(0).toString());
+
+        if(ctAliveValue<=1)
+        {
+            ctAlive=0;
+        }
+        else if(ctAliveValue>=1 && ctAliveValue<=1.5)
+        {
+            ctAlive=1;
+        }
+        else if(ctAliveValue>=1.5 && ctAliveValue<=2.5)
+        {
+            ctAlive=2;
+        }
+        else if(ctAliveValue>=2.5 && ctAliveValue<=3.5)
+        {
+            ctAlive=3;
+        }
+        else if(ctAliveValue>=3.5 && ctAliveValue<=4.5)
+        {
+            ctAlive=4;
+        }
+        else if(ctAliveValue>=4.5 && ctAliveValue<=5.0)
+        {
+            ctAlive=5;
+        }
+
+
+
+        Query tAliveQuery = entityManager.createQuery("SELECT avg(t_players_alive) FROM DataModel WHERE map="+maps);
+        double tAliveValue = Double.parseDouble(tAliveQuery.getResultList().get(0).toString());
+
+        if(tAliveValue<=1)
+        {
+            tAlive=0;
+        }
+        else if(tAliveValue>=1 && tAliveValue<=1.5)
+        {
+            tAlive=1;
+        }
+        else if(tAliveValue>=1.5 && tAliveValue<=2.5)
+        {
+            tAlive=2;
+        }
+        else if(tAliveValue>=2.5 && tAliveValue<=3.5)
+        {
+            tAlive=3;
+        }
+        else if(tAliveValue>=3.5 && tAliveValue<=4.5)
+        {
+            tAlive=4;
+        }
+        else if(tAliveValue>=4.5 && tAliveValue<=5.0)
+        {
+            tAlive=5;
+        }
+
+
+
+        Query ctFlashQuery = entityManager.createQuery("SELECT avg(ct_grenade_flashbang) FROM DataModel WHERE map="+maps);
+        double ctFlashValue = Double.parseDouble(ctFlashQuery.getResultList().get(0).toString());
+        Query tFlashQuery = entityManager.createQuery("SELECT avg(t_grenade_flashbang) FROM DataModel WHERE map="+maps);
+        double tFlashValue = Double.parseDouble(tFlashQuery.getResultList().get(0).toString());
+
+        double flashSum=ctFlashValue+tFlashValue;
+
+        if(flashSum<=1)
+        {
+            flashValue=0;
+        }
+        else if(flashSum>=1 && flashSum<=1.5)
+        {
+            flashValue=1;
+        }
+        else if(flashSum>=1.5 && flashSum<=2.5)
+        {
+            flashValue=2;
+        }
+        else if(flashSum>=2.5 && flashSum<=3.5)
+        {
+            flashValue=3;
+        }
+        else if(flashSum>=3.5 && flashSum<=4.5)
+        {
+            flashValue=4;
+        }
+        else if(flashSum>=4.5 && flashSum<=5.5)
+        {
+            flashValue=5;
+        }
+        else if(flashSum>=5.5 && flashSum<=6.5)
+        {
+            flashValue=6;
+        }
+        else if(flashSum>=6.5 && flashSum<=7.5)
+        {
+            flashValue=7;
+        }
+        else if(flashSum>=7.5 && flashSum<=8.5)
+        {
+            flashValue=8;
+        }
+        else if(flashSum>=8.5 && flashSum<=9.5)
+        {
+            flashValue=9;
+        }
+        else if(flashSum>=9.5)
+        {
+            flashValue=10;
+        }
+
+
+
+
+        Query ctSmokeQuery = entityManager.createQuery("SELECT avg(ct_grenade_smokegrenade) FROM DataModel WHERE map="+maps);
+        double ctSmokeValue = Double.parseDouble(ctSmokeQuery.getResultList().get(0).toString());
+        Query tSmokeQuery = entityManager.createQuery("SELECT avg(t_grenade_smokegrenade) FROM DataModel WHERE map="+maps);
+        double tSmokeValue = Double.parseDouble(tSmokeQuery.getResultList().get(0).toString());
+
+
+        double smokeSumValue=ctSmokeValue+tSmokeValue;
+
+        if(smokeSumValue<=1)
+        {
+            smokeValue=0;
+        }
+        else if(smokeSumValue>=1 && smokeSumValue<=1.5)
+        {
+            smokeValue=1;
+        }
+        else if(smokeSumValue>=1.5 && smokeSumValue<=2.5)
+        {
+            smokeValue=2;
+        }
+        else if(smokeSumValue>=2.5 && smokeSumValue<=3.5)
+        {
+            smokeValue=3;
+        }
+        else if(smokeSumValue>=3.5 && smokeSumValue<=4.5)
+        {
+            smokeValue=4;
+        }
+        else if(smokeSumValue>=4.5 && smokeSumValue<=5.5)
+        {
+            smokeValue=5;
+        }
+        else if(smokeSumValue>=5.5 && smokeSumValue<=6.5)
+        {
+            smokeValue=6;
+        }
+        else if(smokeSumValue>=6.5 && smokeSumValue<=7.5)
+        {
+            smokeValue=7;
+        }
+        else if(smokeSumValue>=7.5 && smokeSumValue<=8.5)
+        {
+            smokeValue=8;
+        }
+        else if(smokeSumValue>=8.5 && smokeSumValue<=9.5)
+        {
+            smokeValue=9;
+        }
+        else if(smokeSumValue>=9.5)
+        {
+            smokeValue=10;
+        }
+
+
+
+
+        Query tWinQuery = entityManager.createQuery("SELECT COUNT(round_winner) FROM DataModel WHERE round_winner=1 AND map="+maps);
+        double tWinValue = Double.parseDouble(tWinQuery.getResultList().get(0).toString());
+
+        Query ctWinQuery = entityManager.createQuery("SELECT COUNT(round_winner) FROM DataModel WHERE round_winner=0 AND map="+maps);
+        double ctWinValue = Double.parseDouble(ctWinQuery.getResultList().get(0).toString());
+
+        if(ctWinValue>tWinValue)
+        {
+            winRound=0;
+        }
+        else
+        {
+            winRound=1;
+        }
+        System.out.println("CT Alive:"+ctAliveValue);
+        System.out.println("CT Alive ARG:"+ctAlive);
+        System.out.println("T Alive:"+tAliveValue);
+        System.out.println("T Alive ARG:"+tAlive);
+        System.out.println("Flash CT:"+ctFlashValue);
+        System.out.println("Flash T:"+tFlashValue);
+        System.out.println("Flash SUM AVG:"+flashSum);
+        System.out.println("Flash ARG:"+flashValue);
+        System.out.println("Smoke CT:"+ctSmokeValue);
+        System.out.println("Smoke T:"+tSmokeValue);
+        System.out.println("Smoke SUM AVG:"+smokeSumValue);
+        System.out.println("Smoke ARG:"+smokeValue);
+        System.out.println("CT WIN:"+ctWinValue);
+        System.out.println("T WIN:"+tWinValue);
+        System.out.println("Arg WIN:"+winRound);
+
+        byte[] bytes =  pngMaker.makePng(ctAlive,tAlive,winRound,flashValue,smokeValue,Integer.parseInt(maps));
+
+        return new ResponseEntity<>(bytes, HttpStatus.OK);
     }
 
     @GetMapping(value = "/data/{attribute}", produces = "application/json")
