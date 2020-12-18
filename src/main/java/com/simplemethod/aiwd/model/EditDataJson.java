@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -24,23 +25,31 @@ import javax.annotation.Resource;
 @Getter
 @Setter
 public class EditDataJson {
-
+    @NotNull
     @JsonProperty("ct_players_alive")
     private int ct_players_alive;
+    @NotNull
     @JsonProperty("t_players_alive")
     private int t_players_alive;
+    @NotNull
     @JsonProperty("bomb_planted")
     private int bomb_planted;
+    @NotNull
     @JsonProperty("ct_grenade_flashbang")
     private float ct_grenade_flashbang;
+    @NotNull
     @JsonProperty("t_grenade_flashbang")
     private float t_grenade_flashbang;
+    @NotNull
     @JsonProperty("ct_grenade_smokegrenade")
     private float ct_grenade_smokegrenade;
+    @NotNull
     @JsonProperty("t_grenade_smokegrenade")
     private float t_grenade_smokegrenade;
+    @NotNull
     @JsonProperty("round_winner")
     private int round_winner;
+    @NotNull
     @JsonProperty("maps")
     private int maps;
 

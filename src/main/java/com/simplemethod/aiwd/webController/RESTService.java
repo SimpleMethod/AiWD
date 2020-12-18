@@ -1,5 +1,6 @@
 package com.simplemethod.aiwd.webController;
 
+import com.simplemethod.aiwd.Services.CleanerService;
 import com.simplemethod.aiwd.Services.pngMaker;
 import com.simplemethod.aiwd.model.*;
 import com.simplemethod.aiwd.reader.FileReader;
@@ -33,6 +34,9 @@ public class RESTService {
     @Autowired
     pngMaker  pngMaker;
 
+    @Autowired
+    CleanerService cleanerService;
+
     @GetMapping(value = "/loaddata/{attribute}", produces = "application/json")
     @ResponseBody
     public ResponseEntity LoaData(@Valid @PathVariable String filepath) throws IOException {
@@ -48,7 +52,6 @@ public class RESTService {
     @PostMapping(value = "/loaddatamodel", produces = "application/json",  consumes = "application/json", headers = "Accept=application/json")
     @ResponseBody
     public ResponseEntity LoaDataSQL( @Valid @RequestBody EditDataJson editDataJson) throws IOException {
-
         DataModel dataModel1 = new DataModel(0, 0, 0, editDataJson.getMaps(), editDataJson.getBomb_planted(), 0,
                 0, 0, 0, 0, 0, 0,
                 0,0, editDataJson.getCt_players_alive(), editDataJson.getT_players_alive(), 0,
@@ -95,7 +98,10 @@ public class RESTService {
     @ResponseBody
     public ResponseEntity<byte[]> pngMarker(@Valid @PathVariable String maps) throws IOException {
 
-
+       if(!cleanerService.checkInteger(Integer.parseInt(maps),1,8))
+       {
+           return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+       }
 
         double ctAlive=0;
 
@@ -424,6 +430,12 @@ public class RESTService {
     @GetMapping(value = "/data/{attribute}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<ResponseModel> getRecord(@Valid @PathVariable String attribute) {
+
+        if(!cleanerService.checkArgs(attribute))
+        {
+            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         Query minValueQuery = entityManager.createQuery("SELECT min(" + attribute + ") FROM DataModel");
         Query maxValueQuery = entityManager.createQuery("SELECT max(" + attribute + ") FROM DataModel");
         Query avgValueQuery = entityManager.createQuery("SELECT avg (" + attribute + ") FROM DataModel");
@@ -450,6 +462,12 @@ public class RESTService {
     @GetMapping(value = "/dataonmape/{attribute}/{maps}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<ResponseModel> getRecordMape(@Valid @PathVariable String attribute, @PathVariable String maps) {
+
+        if(!cleanerService.checkArgs(attribute) || !cleanerService.checkInteger(Integer.parseInt(maps),1,8))
+        {
+            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         Query minValueQuery = entityManager.createQuery("SELECT min(" + attribute + ") FROM DataModel where map="+ maps);
         Query maxValueQuery = entityManager.createQuery("SELECT max(" + attribute + ") FROM DataModel where map="+ maps);
         Query avgValueQuery = entityManager.createQuery("SELECT avg (" + attribute + ") FROM DataModel where map="+ maps);
@@ -476,6 +494,13 @@ public class RESTService {
     @GetMapping(value = "/data/pcc/{attribute}/{attribute2}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<PearsonModel> getPearson(@Valid @PathVariable String attribute, @Valid @PathVariable String attribute2) {
+
+        if(!cleanerService.checkArgs(attribute) || !cleanerService.checkArgs(attribute2))
+        {
+            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+
         Query sumXQuery = entityManager.createQuery("SELECT sum(" + attribute + ") FROM DataModel");
         Query powerXQuery = entityManager.createNativeQuery("SELECT sum(power(" + attribute + ",2)) FROM DataModel");
         Query sumYQuery = entityManager.createQuery("SELECT sum(" + attribute2 + ") FROM DataModel");
@@ -500,6 +525,12 @@ public class RESTService {
     @GetMapping(value = "/data/linearregression/{attribute}/{attribute2}/{attribute3}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<LinearRegressionModel> getLinearRegression(@Valid @PathVariable String attribute, @Valid @PathVariable String attribute2, @Valid @PathVariable double attribute3) {
+
+        if(!cleanerService.checkArgs(attribute) || !cleanerService.checkArgs(attribute2))
+        {
+            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
 
         Query sumXQuery = entityManager.createQuery("SELECT sum(" + attribute + ") FROM DataModel");
         Query powerXQuery = entityManager.createNativeQuery("SELECT sum(power(" + attribute + ",2)) FROM DataModel");
@@ -532,6 +563,12 @@ public class RESTService {
     @GetMapping(value = "/data/weapons/{attribute}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<JSONObject> getWeaponsUsage(@Valid @PathVariable String attribute) {
+
+        if(!cleanerService.checkArgsSite(attribute))
+        {
+            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         Query grenade_decoygrenade = entityManager.createQuery("SELECT sum(" + attribute + "_grenade_decoygrenade) FROM DataModel");
         double grenade_decoygrenadeValue = Double.parseDouble(grenade_decoygrenade.getResultList().get(0).toString());
         Query grenade_flashbang = entityManager.createQuery("SELECT sum(" + attribute + "_grenade_flashbang) FROM DataModel");
@@ -692,6 +729,12 @@ public class RESTService {
     @GetMapping(value = "/data/linearregression/{attribute}/{attribute2}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<BigDecimal>> getLinearRegressionAtribute(@Valid @PathVariable String attribute, @Valid @PathVariable String attribute2) {
+
+        if(!cleanerService.checkArgs(attribute) || !cleanerService.checkArgs(attribute2))
+        {
+            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         Query countRecords = entityManager.createQuery("SELECT count(id) FROM DataModel");
         double countRecordsValue = Double.parseDouble(countRecords.getResultList().get(0).toString());
         List<BigDecimal> getCT_armor = dataModelRepository.getAllByct_armor();
