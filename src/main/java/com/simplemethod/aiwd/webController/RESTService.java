@@ -5,6 +5,7 @@ import com.simplemethod.aiwd.Services.pngMaker;
 import com.simplemethod.aiwd.model.*;
 import com.simplemethod.aiwd.reader.FileReader;
 import com.simplemethod.aiwd.repository.DataModelRepository;
+import com.sun.xml.bind.v2.TODO;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -79,7 +80,7 @@ public class RESTService {
     @PutMapping(value = "/loaddatamodel/{id}", produces = "application/json",  consumes = "application/json", headers = "Accept=application/json")
     @ResponseBody
     public ResponseEntity EditData(@Valid @RequestBody EditDataJson editDataJson, @Valid @PathVariable String id) throws IOException {
-
+        //Todo: Sprawdzić, ilość rekordów 
       DataModel dataModel =  dataModelRepository.findById(Long.parseLong(id));
         dataModel.setMap(editDataJson.getMaps());
         dataModel.setBomb_planted(editDataJson.getBomb_planted());

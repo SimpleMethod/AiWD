@@ -5,7 +5,8 @@
     <title>AiWD</title>
     <style>
     </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -20,18 +21,26 @@
 <div class="container">
 
 
-
     <h1>Lista atrybutów</h1><br>
     <div class="row mb-3">
-        <div class="col-md-8 themed-grid-col"><p>time_left,ct_score,t_score,map,bomb_planted,ct_health,t_health,ct_armor,t_armor,ct_money,t_money,ct_helmets,t_helmets,ct_defuse_kits,ct_players_alive,t_players_alive,ct_weapon_ak47</p><p>
-            t_weapon_ak47,ct_weapon_aug,t_weapon_aug,ct_weapon_awp,t_weapon_awp,ct_weapon_bizon,t_weapon_bizon,ct_weapon_cz75auto,t_weapon_cz75auto,ct_weapon_elite,t_weapon_elite,ct_weapon_famas,</p><p>
-            t_weapon_famas,ct_weapon_g3sg1,t_weapon_g3sg1,ct_weapon_galilar,t_weapon_galilar,ct_weapon_glock,t_weapon_glock,ct_weapon_m249,t_weapon_m249,ct_weapon_m4a1s,t_weapon_m4a1s,ct_weapon_m4a4,</p><p>
-            t_weapon_m4a4,ct_weapon_mac10,t_weapon_mac10,ct_weapon_mag7,t_weapon_mag7,ct_weapon_mp5sd,t_weapon_mp5sd,ct_weapon_mp7,t_weapon_mp7,ct_weapon_mp9,t_weapon_mp9,ct_weapon_negev,</p><p>
-            t_weapon_negev,ct_weapon_nova,t_weapon_nova,ct_weapon_p90,t_weapon_p90,ct_weapon_r8revolver,t_weapon_r8revolver,ct_weapon_sawedoff,t_weapon_sawedoff,ct_weapon_scar20,t_weapon_scar20,</p><p>
-            ct_weapon_sg553,t_weapon_sg553,ct_weapon_ssg08,t_weapon_ssg08,ct_weapon_ump45,t_weapon_ump45,ct_weapon_xm1014,t_weapon_xm1014,ct_weapon_deagle,t_weapon_deagle,ct_weapon_fiveseven,</p><p>
-            t_weapon_fiveseven,ct_weapon_usps,t_weapon_usps,ct_weapon_p250,t_weapon_p250,ct_weapon_p2000,t_weapon_p2000,ct_weapon_tec9,t_weapon_tec9,ct_grenade_hegrenade,t_grenade_hegrenade,</p><p>
-            ct_grenade_flashbang,t_grenade_flashbang,ct_grenade_smokegrenade,t_grenade_smokegrenade,ct_grenade_incendiarygrenade,t_grenade_incendiarygrenade,ct_grenade_molotovgrenade,</p><p>
-            t_grenade_molotovgrenade,ct_grenade_decoygrenade,t_grenade_decoygrenade,round_winner</p>
+        <div class="col-md-8 themed-grid-col"><p>
+            time_left,ct_score,t_score,map,bomb_planted,ct_health,t_health,ct_armor,t_armor,ct_money,t_money,ct_helmets,t_helmets,ct_defuse_kits,ct_players_alive,t_players_alive,ct_weapon_ak47</p>
+            <p>
+                t_weapon_ak47,ct_weapon_aug,t_weapon_aug,ct_weapon_awp,t_weapon_awp,ct_weapon_bizon,t_weapon_bizon,ct_weapon_cz75auto,t_weapon_cz75auto,ct_weapon_elite,t_weapon_elite,ct_weapon_famas,</p>
+            <p>
+                t_weapon_famas,ct_weapon_g3sg1,t_weapon_g3sg1,ct_weapon_galilar,t_weapon_galilar,ct_weapon_glock,t_weapon_glock,ct_weapon_m249,t_weapon_m249,ct_weapon_m4a1s,t_weapon_m4a1s,ct_weapon_m4a4,</p>
+            <p>
+                t_weapon_m4a4,ct_weapon_mac10,t_weapon_mac10,ct_weapon_mag7,t_weapon_mag7,ct_weapon_mp5sd,t_weapon_mp5sd,ct_weapon_mp7,t_weapon_mp7,ct_weapon_mp9,t_weapon_mp9,ct_weapon_negev,</p>
+            <p>
+                t_weapon_negev,ct_weapon_nova,t_weapon_nova,ct_weapon_p90,t_weapon_p90,ct_weapon_r8revolver,t_weapon_r8revolver,ct_weapon_sawedoff,t_weapon_sawedoff,ct_weapon_scar20,t_weapon_scar20,</p>
+            <p>
+                ct_weapon_sg553,t_weapon_sg553,ct_weapon_ssg08,t_weapon_ssg08,ct_weapon_ump45,t_weapon_ump45,ct_weapon_xm1014,t_weapon_xm1014,ct_weapon_deagle,t_weapon_deagle,ct_weapon_fiveseven,</p>
+            <p>
+                t_weapon_fiveseven,ct_weapon_usps,t_weapon_usps,ct_weapon_p250,t_weapon_p250,ct_weapon_p2000,t_weapon_p2000,ct_weapon_tec9,t_weapon_tec9,ct_grenade_hegrenade,t_grenade_hegrenade,</p>
+            <p>
+                ct_grenade_flashbang,t_grenade_flashbang,ct_grenade_smokegrenade,t_grenade_smokegrenade,ct_grenade_incendiarygrenade,t_grenade_incendiarygrenade,ct_grenade_molotovgrenade,</p>
+            <p>
+                t_grenade_molotovgrenade,ct_grenade_decoygrenade,t_grenade_decoygrenade,round_winner</p>
             <br><br>
         </div>
     </div>
@@ -40,157 +49,236 @@
         <div class="row mb-3">
             <div class="col-sm-4 themed-grid-col">
                 <input type="text" class="form-control" v-model="atrybut" placeholder="Scieżka do pliku">
-                <button @click="ladowanie" type="button" class="btn btn-primary">Zaladuj plik</button>
-            </div></div></div>
-
-    <h1>Dodanie nowego rekordu do bazy danych</h1><br>
-    <div id="addNewRecords">
-        <div class="row mb-3">
-            <div class="col-sm-4 themed-grid-col">
-                <input type="text" class="form-control" v-model="ct_players_alive" placeholder="ct_players_alive">
-                <input type="text" class="form-control" v-model="t_players_alive" placeholder="t_players_alive">
-                <input type="text" class="form-control" v-model="ct_grenade_flashbang" placeholder="ct_grenade_flashbang">
-                <input type="text" class="form-control" v-model="t_grenade_flashbang" placeholder="t_grenade_flashbang">
-                <input type="text" class="form-control" v-model="ct_grenade_smokegrenade" placeholder="ct_grenade_smokegrenade">
-                <input type="text" class="form-control" v-model="t_grenade_smokegrenade" placeholder="t_grenade_smokegrenade">
-                <input type="text" class="form-control" v-model="round_winner" placeholder="round_winner">
-                <input type="text" class="form-control" v-model="bomb_planted" placeholder="bomb_planted">
-                <input type="text" class="form-control" v-model="maps" placeholder="maps">
-                <button @click="addNew" type="button" class="btn btn-primary">Dodaj nowy rekord do bazy danych</button>
-            </div>
-        </div></div>
-
-    <h1>Edycja rekordu</h1><br>
-    <div id="editRecords">
-        <div class="row mb-3">
-            <div class="col-sm-4 themed-grid-col">
-                <input type="text" class="form-control" v-model="idRecord" placeholder="id rekordu bazy danych">
-                <input type="text" class="form-control" v-model="ct_players_alive" placeholder="ct_players_alive">
-                <input type="text" class="form-control" v-model="t_players_alive" placeholder="t_players_alive">
-                <input type="text" class="form-control" v-model="ct_grenade_flashbang" placeholder="ct_grenade_flashbang">
-                <input type="text" class="form-control" v-model="t_grenade_flashbang" placeholder="ct_grenade_flashbang">
-                <input type="text" class="form-control" v-model="ct_grenade_smokegrenade" placeholder="ct_grenade_flashbang">
-                <input type="text" class="form-control" v-model="t_grenade_smokegrenade" placeholder="ct_grenade_flashbang">
-                <input type="text" class="form-control" v-model="round_winner" placeholder="ct_grenade_flashbang">
-                <input type="text" class="form-control" v-model="bomb_planted" placeholder="bomb_planted">
-                <input type="text" class="form-control" v-model="maps" placeholder="maps">
-                <button @click="editRecord" type="button" class="btn btn-primary">Edytuj rekord</button>
-            </div>
-        </div></div>
-
-    <h1>Wyznaczenie dla zmiennych statystyk opisowych</h1><br>
-    <div id="app">
-    <div class="row mb-3">
-        <div class="col-sm-4 themed-grid-col">
-            <input type="text" class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
-            <button @click="wale" type="button" class="btn btn-primary">Wyszukaj atrybutu</button>
-        </div>
-        <div class="col-sm-4 themed-grid-col">
-            <p>Nazwa atrybutu:<b>{{data.variableName}}</b></p>
-            <p>Wartość minimalna:<b>{{data.minValue}}</b></p>
-            <p>Wartość maksymalna:<b>{{data.maxValue}}</b></p>
-            <p>Wartość średnia:<b>{{data.avgValue}}</b></p>
-            <p>Kwantyl Q1:<b>{{data.percentileQ1Value}}</b></p>
-            <p>Kwantyl Q2(Mediana):<b>{{data.percentileQ2Value}}</b></p>
-            <p>Kwantyl Q3:<b>{{data.percentileQ3Value}}</b></p>
-            <p>Kwantyl 0.1:<b>{{data.percentile1Value}}</b></p>
-            <p>Kwantyl 0.9:<b>{{data.percentile9Value}}</b></p>
-            <p>Rozstęp międzykwartylowy IQR:<b>{{data.percentileIRQ}}</b></p>
-            <p>Punkt oddalony poniżej:<b>{{data.belowPoint}}</b></p>
-            <p>Punkt oddalony powyżej:<b>{{data.abovePoint}}</b></p>
-        </div>
-    </div>
-</div>
-
-    <h1>Wyznaczenie dla zmiennych statystyk opisowych danych dla określonej mapy</h1><br>
-    <div id="app1">
-        <div class="row mb-3">
-            <div class="col-sm-4 themed-grid-col">
-                <input type="text" class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
-                <input type="text" class="form-control" v-model="mapa" placeholder="Mapa do obliczeń">
-                <button @click="wale" type="button" class="btn btn-primary">Wyszukaj atrybutu</button>
-            </div>
-            <div class="col-sm-4 themed-grid-col">
-                <p>Nazwa atrybutu:<b>{{data.variableName}}</b></p>
-                <p>Wartość minimalna:<b>{{data.minValue}}</b></p>
-                <p>Wartość maksymalna:<b>{{data.maxValue}}</b></p>
-                <p>Wartość średnia:<b>{{data.avgValue}}</b></p>
-                <p>Kwantyl Q1:<b>{{data.percentileQ1Value}}</b></p>
-                <p>Kwantyl Q2(Mediana):<b>{{data.percentileQ2Value}}</b></p>
-                <p>Kwantyl Q3:<b>{{data.percentileQ3Value}}</b></p>
-                <p>Kwantyl 0.1:<b>{{data.percentile1Value}}</b></p>
-                <p>Kwantyl 0.9:<b>{{data.percentile9Value}}</b></p>
-                <p>Rozstęp międzykwartylowy IQR:<b>{{data.percentileIRQ}}</b></p>
-                <p>Punkt oddalony poniżej:<b>{{data.belowPoint}}</b></p>
-                <p>Punkt oddalony powyżej:<b>{{data.abovePoint}}</b></p>
+                <button @click="ladowanieDanych" type="button" class="btn btn-primary">Zaladuj plik</button>
             </div>
         </div>
     </div>
 
-
-<h1>Wyznaczenie współczynnika korelacji liniowej Pearsona</h1>
-    <div id="pcc">
-        <div class="row mb-3">
-            <div class="col-sm-4 themed-grid-col">
-                <input type="text" class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
-                <input type="text" class="form-control" v-model="atrybut1" placeholder="Atrybut do analizy 1">
-                <input type="text" class="form-control" v-model="atrybut2" placeholder="Atrybut do analizy 2">
-                <input type="text" class="form-control" v-model="atrybut3" placeholder="Atrybut do analizy 3">
-                <input type="text" class="form-control" v-model="atrybut4" placeholder="Atrybut do analizy 4">
-                <input type="text" class="form-control" v-model="atrybut5" placeholder="Atrybut do analizy 5">
-                <button @click="wale" type="button" class="btn btn-primary">Przeprowadź analizę</button>
+    <div class="container">
+        <div class="row">
+            <div class="col"><h3>Dodanie nowego rekordu do bazy danych</h3><br>
+                <div id="addNewRecords">
+                    <div class="row mb-3">
+                        <div class="col-sm-4 themed-grid-col">
+                            <input type="text" class="form-control" v-model="ct_players_alive"
+                                   placeholder="ct_players_alive">
+                            <input type="text" class="form-control" v-model="t_players_alive"
+                                   placeholder="t_players_alive">
+                            <input type="text" class="form-control" v-model="ct_grenade_flashbang"
+                                   placeholder="ct_grenade_flashbang">
+                            <input type="text" class="form-control" v-model="t_grenade_flashbang"
+                                   placeholder="t_grenade_flashbang">
+                            <input type="text" class="form-control" v-model="ct_grenade_smokegrenade"
+                                   placeholder="ct_grenade_smokegrenade">
+                            <input type="text" class="form-control" v-model="t_grenade_smokegrenade"
+                                   placeholder="t_grenade_smokegrenade">
+                            <input type="text" class="form-control" v-model="round_winner" placeholder="round_winner">
+                            <input type="text" class="form-control" v-model="bomb_planted" placeholder="bomb_planted">
+                            <input type="text" class="form-control" v-model="maps" placeholder="maps">
+                            <button @click="addNew" type="button" class="btn btn-primary">Dodaj nowy rekord do bazy
+                                danych
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-2 themed-grid-col">
-                <p>Nazwa głównego atrybutu:<b>{{atrybut}}</b></p>
-                <p>Nazwa analizowanego atrybutu:<b>{{data1.secondVariableName}}</b></p>
-                <p>Współczynnika korelacji:<b>{{data1.pearsonValue}}</b></p>
-                <hr>
-                <p>Nazwa analizowanego atrybutu:<b>{{data2.secondVariableName}}</b></p>
-                <p>Współczynnika korelacji:<b>{{data2.pearsonValue}}</b></p>
-                <hr>
-                <p>Nazwa analizowanego atrybutu:<b>{{data3.secondVariableName}}</b></p>
-                <p>Współczynnika korelacji:<b>{{data3.pearsonValue}}</b></p>
-                <hr>
-                <p>Nazwa analizowanego atrybutu:<b>{{data4.secondVariableName}}</b></p>
-                <p>Współczynnika korelacji:<b>{{data4.pearsonValue}}</b></p>
-                <hr>
-                <p>Nazwa analizowanego atrybutu:<b>{{data5.secondVariableName}}</b></p>
-                <p>Współczynnika korelacji:<b>{{data5.pearsonValue}}</b></p>
+            <div class="col"><h3>Edycja rekordu</h3><br>
+                <div id="editRecords">
+                    <div class="row mb-3">
+                        <div class="col-sm-4 themed-grid-col">
+                            <input type="text" class="form-control" v-model="idRecord"
+                                   placeholder="id rekordu bazy danych">
+                            <input type="text" class="form-control" v-model="ct_players_alive"
+                                   placeholder="ct_players_alive">
+                            <input type="text" class="form-control" v-model="t_players_alive"
+                                   placeholder="t_players_alive">
+                            <input type="text" class="form-control" v-model="ct_grenade_flashbang"
+                                   placeholder="ct_grenade_flashbang">
+                            <input type="text" class="form-control" v-model="t_grenade_flashbang"
+                                   placeholder="ct_grenade_flashbang">
+                            <input type="text" class="form-control" v-model="ct_grenade_smokegrenade"
+                                   placeholder="ct_grenade_flashbang">
+                            <input type="text" class="form-control" v-model="t_grenade_smokegrenade"
+                                   placeholder="ct_grenade_flashbang">
+                            <input type="text" class="form-control" v-model="round_winner"
+                                   placeholder="ct_grenade_flashbang">
+                            <input type="text" class="form-control" v-model="bomb_planted" placeholder="bomb_planted">
+                            <input type="text" class="form-control" v-model="maps" placeholder="maps">
+                            <button @click="editRecord" type="button" class="btn btn-primary">Edytuj rekord</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Wyznaczenie dla zmiennych statystyk opisowych</h1><br>
+        <div id="app">
+            <div class="row mb-3">
+                <div class="col-sm-4 themed-grid-col">
+                    <input type="text" class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
+                    <button @click="doAction " type="button" class="btn btn-primary">Wyszukaj atrybutu</button>
+                </div>
+                <div class="col-sm-4 themed-grid-col">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col"> <p>Nazwa atrybutu:<b>{{data.variableName}}</b></p></div>
+                            <div class="col"> <p>Wartość minimalna:<b>{{data.minValue}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col"><p>Wartość maksymalna:<b>{{data.maxValue}}</b></p></div>
+                            <div class="col"><p>Wartość średnia:<b>{{data.avgValue}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col"><p>Kwantyl Q1:<b>{{data.percentileQ1Value}}</b></p></div>
+                            <div class="col"><p>Kwantyl Q2(Mediana):<b>{{data.percentileQ2Value}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col"><p>Kwantyl Q3:<b>{{data.percentileQ3Value}}</b></p></div>
+                            <div class="col"><p>Kwantyl 0.1:<b>{{data.percentile1Value}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col"><p>Kwantyl 0.9:<b>{{data.percentile9Value}}</b></p></div>
+                            <div class="col"><p>Rozstęp międzykwartylowy IQR:<b>{{data.percentileIRQ}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col"><p>Punkt oddalony poniżej:<b>{{data.belowPoint}}</b></p></div>
+                            <div class="col"><p>Punkt oddalony powyżej:<b>{{data.abovePoint}}</b></p></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-<h1>Dokonanie prostej regresji liniowej pomiędzy wybranymi parami zmiennych</h1>
-    <div>
-    <div id="linearregression">
-        <div class="row mb-3">
-            <div class="col-sm-4 themed-grid-col">
-                <input type="text" class="form-control" v-model="atrybut" placeholder="Pierwszy atrybut do regresji">
-                <input type="text" class="form-control" v-model="atrybut1" placeholder="Drugi atrybut do regresji">
-                <input type="text" class="form-control" v-model="atrybut2" placeholder="Wartość atrybutu X">
-                <button @click="wale" type="button" class="btn btn-primary">Przeprowadź regresje</button>
+
+    <div class="container">
+        <h1>Wyznaczenie dla zmiennych statystyk opisowych danych dla określonej mapy</h1><br>
+        <div id="app1">
+            <div class="row mb-3">
+                <div class="col-sm-4 themed-grid-col">
+                    <input type="text" class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
+                    <input type="text" class="form-control" v-model="mapa" placeholder="Mapa do obliczeń">
+                    <button @click="doAction " type="button" class="btn btn-primary">Wyszukaj atrybutu</button>
+                </div>
+                <div class="col-sm-4 themed-grid-col">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col"> <p>Nazwa atrybutu:<b>{{data.variableName}}</b></p></div>
+                            <div class="col"> <p>Wartość minimalna:<b>{{data.minValue}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col"><p>Wartość maksymalna:<b>{{data.maxValue}}</b></p></div>
+                            <div class="col"><p>Wartość średnia:<b>{{data.avgValue}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col"><p>Kwantyl Q1:<b>{{data.percentileQ1Value}}</b></p></div>
+                            <div class="col"><p>Kwantyl Q2(Mediana):<b>{{data.percentileQ2Value}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col"><p>Kwantyl Q3:<b>{{data.percentileQ3Value}}</b></p></div>
+                            <div class="col"><p>Kwantyl 0.1:<b>{{data.percentile1Value}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col"><p>Kwantyl 0.9:<b>{{data.percentile9Value}}</b></p></div>
+                            <div class="col"><p>Rozstęp międzykwartylowy IQR:<b>{{data.percentileIRQ}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col"><p>Punkt oddalony poniżej:<b>{{data.belowPoint}}</b></p></div>
+                            <div class="col"><p>Punkt oddalony powyżej:<b>{{data.abovePoint}}</b></p></div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <div class="col-sm-2 themed-grid-col">
-                <p>Nazwa pierwszego atrybutu:<b>{{atrybut}}</b></p>
-                <p>Nazwa drugiego atrybutu:<b>{{data.secondVariableName}}</b></p>
-                <p>Wartość atrybutu X:<b>{{data.firstVariableValue}}</b></p>
-                <hr>
-                <p>Formuła regresji:<b>y={{data.linearRegressionAVariable}}+{{data.linearRegressionBVariable}}*x</b></p>
-                <p>Wartość atrybutu Y dla x={{data.firstVariableValue}} wynosi:<b>{{data.linearRegressionValue}}</b></p>
-            </div>
+        </div>
+    </div>
+
+    <h1>"Twarze" Chernoffa dla map</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col"><img src="http://localhost:2137/pngmarker/1"></div>
+            <div class="col"><img src="http://localhost:2137/pngmarker/2"></div>
+            <div class="w-100"></div>
+            <div class="col"><img src="http://localhost:2137/pngmarker/3"></div>
+            <div class="col"><img src="http://localhost:2137/pngmarker/4"></div>
+            <div class="w-100"></div>
+            <div class="col"><img src="http://localhost:2137/pngmarker/5"></div>
+            <div class="col"><img src="http://localhost:2137/pngmarker/6"></div>
+            <div class="w-100"></div>
+            <div class="col"><img src="http://localhost:2137/pngmarker/7"></div>
+            <div class="col"><img src="http://localhost:2137/pngmarker/8"></div>
         </div>
     </div>
     <hr>
-    <figure class="highcharts-figure">
-        <div id="container"></div>
-    </figure>
-    <hr>
-    <h1>Wizualizacja danych</h1>
-    <h3>Histogram użyć broni przez drużynę Antyterrorystów</h3>
-    <canvas id="myChart"></canvas>
-    <h3>Histogram użyć broni przez drużynę Terrorystów</h3>
-    <canvas id="myChart2"></canvas>
-    <h3>Wykres kołowy rozkładu zwycięstw</h3>
-    <canvas id="myChart3"></canvas>
+
+    <div class="container">
+        <h1>Wyznaczenie współczynnika korelacji liniowej Pearsona</h1>
+        <div id="pcc">
+            <div class="row mb-3">
+                <div class="col-sm-4 themed-grid-col">
+                    <input type="text" class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
+                    <input type="text" class="form-control" v-model="atrybut1" placeholder="Atrybut do analizy 1">
+                    <input type="text" class="form-control" v-model="atrybut2" placeholder="Atrybut do analizy 2">
+                    <input type="text" class="form-control" v-model="atrybut3" placeholder="Atrybut do analizy 3">
+                    <input type="text" class="form-control" v-model="atrybut4" placeholder="Atrybut do analizy 4">
+                    <input type="text" class="form-control" v-model="atrybut5" placeholder="Atrybut do analizy 5">
+                    <button @click="doAction " type="button" class="btn btn-primary">Przeprowadź analizę</button>
+                </div>
+                <div class="col-sm-2 themed-grid-col">
+                    <div class="container">
+                        <p>Nazwa głównego atrybutu:<b>{{atrybut}}</b></p>
+                        <div class="row">
+                            <div class="col"> <p>Nazwa analizowanego atrybutu:<b>{{data1.secondVariableName}}</b></p></div>
+                            <div class="col"> <p>Współczynnika korelacji:<b>{{data1.pearsonValue}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col">   <p>Nazwa analizowanego atrybutu:<b>{{data2.secondVariableName}}</b></p></div>
+                            <div class="col"> <p>Współczynnika korelacji:<b>{{data2.pearsonValue}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col">   <p>Nazwa analizowanego atrybutu:<b>{{data3.secondVariableName}}</b></p></div>
+                            <div class="col"> <p>Współczynnika korelacji:<b>{{data3.pearsonValue}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col">  <p>Nazwa analizowanego atrybutu:<b>{{data4.secondVariableName}}</b></p></div>
+                            <div class="col">  <p>Współczynnika korelacji:<b>{{data4.pearsonValue}}</b></p></div>
+                            <div class="w-100"></div>
+                            <div class="col"><p>Nazwa analizowanego atrybutu:<b>{{data5.secondVariableName}}</b></p></div>
+                            <div class="col"><p>Współczynnika korelacji:<b>{{data5.pearsonValue}}</b></p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Dokonanie prostej regresji liniowej pomiędzy wybranymi parami zmiennych</h1>
+        <div id="linearregression">
+            <div class="row mb-3">
+                <div class="col-sm-4 themed-grid-col">
+                    <input type="text" class="form-control" v-model="atrybut"
+                           placeholder="Pierwszy atrybut do regresji">
+                    <input type="text" class="form-control" v-model="atrybut1" placeholder="Drugi atrybut do regresji">
+                    <input type="text" class="form-control" v-model="atrybut2" placeholder="Wartość atrybutu X">
+                    <button @click="doAction " type="button" class="btn btn-primary">Przeprowadź regresje</button>
+                </div>
+                <div class="col-sm-2 themed-grid-col">
+                    <p>Nazwa pierwszego atrybutu:<b>{{atrybut}}</b></p>
+                    <p>Nazwa drugiego atrybutu:<b>{{data.secondVariableName}}</b></p>
+                    <p>Wartość atrybutu X:<b>{{data.firstVariableValue}}</b></p>
+                    <hr>
+                    <p>Formuła regresji:<b>y={{data.linearRegressionAVariable}}+{{data.linearRegressionBVariable}}*x</b>
+                    </p>
+                    <p>Wartość atrybutu Y dla x={{data.firstVariableValue}} wynosi:<b>{{data.linearRegressionValue}}</b>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <hr>
+        <figure class="highcharts-figure">
+            <div id="container"></div>
+        </figure>
+        <hr>
+        <h1>Wizualizacja danych</h1>
+        <h3>Histogram użyć broni przez drużynę Antyterrorystów</h3>
+        <canvas id="myChart"></canvas>
+        <h3>Histogram użyć broni przez drużynę Terrorystów</h3>
+        <canvas id="myChart2"></canvas>
+        <h3>Wykres kołowy rozkładu zwycięstw</h3>
+        <canvas id="myChart3"></canvas>
     </div>
 </div>
 
@@ -201,48 +289,48 @@
             type: 'GET',
             url: 'http://localhost:2137/data/weapons/ct',
             success: function (jsonss) {
-                 jsonfile = jsonss;
+                jsonfile = jsonss;
 
-    var labels = jsonfile.jsonarray.map(function(e) {
-        return e.name;
-    });
-    var data = jsonfile.jsonarray.map(function(e) {
-        return e.y;
-    });
+                var labels = jsonfile.jsonarray.map(function (e) {
+                    return e.name;
+                });
+                var data = jsonfile.jsonarray.map(function (e) {
+                    return e.y;
+                });
 
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ["grenade_decoygrenade","grenade_flashbang","grenade_hegrenade","grenade_incendiarygrenade","grenade_molotovgrenade","grenade_smokegrenade","weapon_ak47","weapon_aug","weapon_awp",
-                "weapon_bizon","weapon_cz75auto","weapon_deagle","weapon_elite","weapon_famas","weapon_fiveseven","weapon_g3sg1","weapon_galilar","weapon_glock","weapon_m249","weapon_m4a1s","weapon_m4a4","weapon_mac10",
-                "weapon_mag7","weapon_mp5sd","weapon_mp7","weapon_mp9","weapon_negev","weapon_nova","weapon_p2000","weapon_p250","weapon_p90","weapon_r8revolver","weapon_sawedoff","weapon_scar20","weapon_sg553","weapon_ssg08",
-                "weapon_tec9","weapon_ump45","weapon_usps","weapon_xm1014"],
-            datasets: [{
-                label: 'Suma użyć',
-                data: data,
-                borderWidth: 1
-            }]
-        },
-        options: {
-            legend: {
-                display: false,
-            },
-            tooltips: {
-                callbacks: {
-                    label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
-                    title: () => null,
-                }
-            },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ["grenade_decoygrenade", "grenade_flashbang", "grenade_hegrenade", "grenade_incendiarygrenade", "grenade_molotovgrenade", "grenade_smokegrenade", "weapon_ak47", "weapon_aug", "weapon_awp",
+                            "weapon_bizon", "weapon_cz75auto", "weapon_deagle", "weapon_elite", "weapon_famas", "weapon_fiveseven", "weapon_g3sg1", "weapon_galilar", "weapon_glock", "weapon_m249", "weapon_m4a1s", "weapon_m4a4", "weapon_mac10",
+                            "weapon_mag7", "weapon_mp5sd", "weapon_mp7", "weapon_mp9", "weapon_negev", "weapon_nova", "weapon_p2000", "weapon_p250", "weapon_p90", "weapon_r8revolver", "weapon_sawedoff", "weapon_scar20", "weapon_sg553", "weapon_ssg08",
+                            "weapon_tec9", "weapon_ump45", "weapon_usps", "weapon_xm1014"],
+                        datasets: [{
+                            label: 'Suma użyć',
+                            data: data,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        legend: {
+                            display: false,
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: tooltipItem => `${tooltipItem.yLabel}: ${tooltipItem.xLabel}`,
+                                title: () => null,
+                            }
+                        },
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
                     }
-                }]
-            }
-        }
-    });
+                });
             }
         });
     });
@@ -257,10 +345,10 @@
             success: function (jsonss) {
                 jsonfile = jsonss;
 
-                var labels = jsonfile.jsonarray.map(function(e) {
+                var labels = jsonfile.jsonarray.map(function (e) {
                     return e.name;
                 });
-                var data = jsonfile.jsonarray.map(function(e) {
+                var data = jsonfile.jsonarray.map(function (e) {
                     return e.y;
                 });
 
@@ -268,10 +356,10 @@
                 var myChart = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ["grenade_decoygrenade","grenade_flashbang","grenade_hegrenade","grenade_incendiarygrenade","grenade_molotovgrenade","grenade_smokegrenade","weapon_ak47","weapon_aug","weapon_awp",
-                            "weapon_bizon","weapon_cz75auto","weapon_deagle","weapon_elite","weapon_famas","weapon_fiveseven","weapon_g3sg1","weapon_galilar","weapon_glock","weapon_m249","weapon_m4a1s","weapon_m4a4","weapon_mac10",
-                            "weapon_mag7","weapon_mp5sd","weapon_mp7","weapon_mp9","weapon_negev","weapon_nova","weapon_p2000","weapon_p250","weapon_p90","weapon_r8revolver","weapon_sawedoff","weapon_scar20","weapon_sg553","weapon_ssg08",
-                            "weapon_tec9","weapon_ump45","weapon_usps","weapon_xm1014"],
+                        labels: ["grenade_decoygrenade", "grenade_flashbang", "grenade_hegrenade", "grenade_incendiarygrenade", "grenade_molotovgrenade", "grenade_smokegrenade", "weapon_ak47", "weapon_aug", "weapon_awp",
+                            "weapon_bizon", "weapon_cz75auto", "weapon_deagle", "weapon_elite", "weapon_famas", "weapon_fiveseven", "weapon_g3sg1", "weapon_galilar", "weapon_glock", "weapon_m249", "weapon_m4a1s", "weapon_m4a4", "weapon_mac10",
+                            "weapon_mag7", "weapon_mp5sd", "weapon_mp7", "weapon_mp9", "weapon_negev", "weapon_nova", "weapon_p2000", "weapon_p250", "weapon_p90", "weapon_r8revolver", "weapon_sawedoff", "weapon_scar20", "weapon_sg553", "weapon_ssg08",
+                            "weapon_tec9", "weapon_ump45", "weapon_usps", "weapon_xm1014"],
                         datasets: [{
                             label: 'Suma użyć',
                             data: data,
@@ -311,10 +399,10 @@
             success: function (jsonss) {
                 jsonfile = jsonss;
 
-                var labels = jsonfile.jsonarray.map(function(e) {
+                var labels = jsonfile.jsonarray.map(function (e) {
                     return e.name;
                 });
-                var data = jsonfile.jsonarray.map(function(e) {
+                var data = jsonfile.jsonarray.map(function (e) {
                     return e.y;
                 });
 
@@ -322,11 +410,11 @@
                 var myChart = new Chart(ctx, {
                     type: 'pie',
                     data: {
-                        labels: ["Antyterroryści","Terroryści"],
+                        labels: ["Antyterroryści", "Terroryści"],
                         datasets: [{
-                            borderColor : "#fff",
-                            borderWidth : "3",
-                            hoverBorderColor : "#000",
+                            borderColor: "#fff",
+                            borderWidth: "3",
+                            hoverBorderColor: "#000",
                             backgroundColor: [
                                 "#f38b4a",
                                 "#56d798",
@@ -352,28 +440,37 @@
 <script>
 
     new Vue({
-        el:'#addNewRecords',
+        el: '#addNewRecords',
         data:
             {
-                data:"",
-                ct_players_alive:"",
-                t_players_alive:"",
-                bomb_planted:"",
-                ct_grenade_flashbang:"",
-                t_grenade_flashbang:"",
-                ct_grenade_smokegrenade:"",
-                t_grenade_smokegrenade:"",
-                round_winner:"",
-                maps:""
+                data: "",
+                ct_players_alive: "",
+                t_players_alive: "",
+                bomb_planted: "",
+                ct_grenade_flashbang: "",
+                t_grenade_flashbang: "",
+                ct_grenade_smokegrenade: "",
+                t_grenade_smokegrenade: "",
+                round_winner: "",
+                maps: ""
 
             },
         methods: {
-            addNew()
-            {
+            addNew() {
                 axios({
                     method: 'post',
                     url: 'http://localhost:2137/loaddatamodel/',
-                    data: {ct_players_alive: this.ct_players_alive,t_players_alive:this.t_players_alive,bomb_planted:this.bomb_planted,ct_grenade_flashbang:this.ct_grenade_flashbang,t_grenade_flashbang:this.t_grenade_flashbang,ct_grenade_smokegrenade:this.ct_grenade_smokegrenade,t_grenade_smokegrenade:this.t_grenade_smokegrenade,round_winner:this.round_winner,maps:this.maps},
+                    data: {
+                        ct_players_alive: this.ct_players_alive,
+                        t_players_alive: this.t_players_alive,
+                        bomb_planted: this.bomb_planted,
+                        ct_grenade_flashbang: this.ct_grenade_flashbang,
+                        t_grenade_flashbang: this.t_grenade_flashbang,
+                        ct_grenade_smokegrenade: this.ct_grenade_smokegrenade,
+                        t_grenade_smokegrenade: this.t_grenade_smokegrenade,
+                        round_winner: this.round_winner,
+                        maps: this.maps
+                    },
                     headers: {
                         Authorization: 'Bearer ' + "null"
                     }
@@ -383,29 +480,38 @@
     })
 
     new Vue({
-        el:'#editRecords',
+        el: '#editRecords',
         data:
             {
-                data:"",
-                ct_players_alive:"",
-                t_players_alive:"",
-                bomb_planted:"",
-                ct_grenade_flashbang:"",
-                t_grenade_flashbang:"",
-                ct_grenade_smokegrenade:"",
-                t_grenade_smokegrenade:"",
-                round_winner:"",
-                maps:"",
-                idRecord:""
+                data: "",
+                ct_players_alive: "",
+                t_players_alive: "",
+                bomb_planted: "",
+                ct_grenade_flashbang: "",
+                t_grenade_flashbang: "",
+                ct_grenade_smokegrenade: "",
+                t_grenade_smokegrenade: "",
+                round_winner: "",
+                maps: "",
+                idRecord: ""
 
             },
         methods: {
-            editRecord()
-            {
+            editRecord() {
                 axios({
                     method: 'put',
-                    url: 'http://localhost:2137/loaddatamodel/'+this.idRecord,
-                    data: {ct_players_alive: this.ct_players_alive,t_players_alive:this.t_players_alive,bomb_planted:this.bomb_planted,ct_grenade_flashbang:this.ct_grenade_flashbang,t_grenade_flashbang:this.t_grenade_flashbang,ct_grenade_smokegrenade:this.ct_grenade_smokegrenade,t_grenade_smokegrenade:this.t_grenade_smokegrenade,round_winner:this.round_winner,maps:this.maps},
+                    url: 'http://localhost:2137/loaddatamodel/' + this.idRecord,
+                    data: {
+                        ct_players_alive: this.ct_players_alive,
+                        t_players_alive: this.t_players_alive,
+                        bomb_planted: this.bomb_planted,
+                        ct_grenade_flashbang: this.ct_grenade_flashbang,
+                        t_grenade_flashbang: this.t_grenade_flashbang,
+                        ct_grenade_smokegrenade: this.ct_grenade_smokegrenade,
+                        t_grenade_smokegrenade: this.t_grenade_smokegrenade,
+                        round_winner: this.round_winner,
+                        maps: this.maps
+                    },
                     headers: {
                         Authorization: 'Bearer ' + "null"
                     }
@@ -415,161 +521,156 @@
     })
 
     new Vue({
-        el:'#ladowanie',
+        el: '#ladowanie',
         data:
             {
-                data:"",
-                atrybut:"",
+                data: "",
+                atrybut: "",
             },
         methods: {
-            ladowanie()
-            {
-                axios.get("http://localhost:2137/loaddata/"+this.atrybut)
+            ladowanieDanych() {
+                axios.get("http://localhost:2137/loaddata/" + this.atrybut)
                     .then(response => this.data = response.data);
             }
         }
     })
 
     new Vue({
-        el:'#app1',
+        el: '#app1',
         data:
             {
-                data:"",
-                atrybut:"ct_players_alive",
-                mapa:"1",
+                data: "",
+                atrybut: "ct_players_alive",
+                mapa: "1",
             },
         methods: {
-            wale()
-            {
-                axios.get("http://localhost:2137/dataonmape/"+this.atrybut+"/"+this.mapa)
-                    .then(response => this.data = response.data);
-            }
-        }
-    })
-
-  new Vue({
-      el:'#app',
-      data:
-          {
-              data:"",
-              atrybut:"ct_players_alive",
-          },
-      methods: {
-          wale()
-          {
-              axios.get("http://localhost:2137/data/"+this.atrybut)
-                  .then(response => this.data = response.data);
-          }
-      }
-  })
-
-    new Vue({
-        el:'#linearregression',
-        data:
-            {
-                data:"",
-                atrybut:"ct_players_alive",
-                atrybut1:"ct_armor",
-                atrybut2:"2"
-            },
-        methods: {
-            wale()
-            {
-                axios.get("http://localhost:2137/data/linearregression/"+this.atrybut+"/"+this.atrybut1+"/"+this.atrybut2)
+            doAction() {
+                axios.get("http://localhost:2137/dataonmape/" + this.atrybut + "/" + this.mapa)
                     .then(response => this.data = response.data);
             }
         }
     })
 
     new Vue({
-        el:'#pcc',
+        el: '#app',
         data:
             {
-                data1:"",
-                data2:"",
-                data3:"",
-                data4:"",
-                data5:"",
-                atrybut:"",
-                atrybut1:"",
-                atrybut2:"",
-                atrybut3:"",
-                atrybut4:"",
-                atrybut5:""
+                data: "",
+                atrybut: "ct_players_alive",
             },
         methods: {
-            wale()
+            doAction() {
+                axios.get("http://localhost:2137/data/" + this.atrybut)
+                    .then(response => this.data = response.data);
+            }
+        }
+    })
+
+    new Vue({
+        el: '#linearregression',
+        data:
             {
-                axios.get("http://localhost:2137/data/pcc/"+this.atrybut+"/"+this.atrybut1)
+                data: "",
+                atrybut: "ct_players_alive",
+                atrybut1: "ct_armor",
+                atrybut2: "2"
+            },
+        methods: {
+            doAction() {
+                axios.get("http://localhost:2137/data/linearregression/" + this.atrybut + "/" + this.atrybut1 + "/" + this.atrybut2)
+                    .then(response => this.data = response.data);
+            }
+        }
+    })
+
+    new Vue({
+        el: '#pcc',
+        data:
+            {
+                data1: "",
+                data2: "",
+                data3: "",
+                data4: "",
+                data5: "",
+                atrybut: "",
+                atrybut1: "",
+                atrybut2: "",
+                atrybut3: "",
+                atrybut4: "",
+                atrybut5: ""
+            },
+        methods: {
+            doAction() {
+                axios.get("http://localhost:2137/data/pcc/" + this.atrybut + "/" + this.atrybut1)
                     .then(response => this.data1 = response.data);
-                axios.get("http://localhost:2137/data/pcc/"+this.atrybut+"/"+this.atrybut2)
+                axios.get("http://localhost:2137/data/pcc/" + this.atrybut + "/" + this.atrybut2)
                     .then(response => this.data2 = response.data);
-                axios.get("http://localhost:2137/data/pcc/"+this.atrybut+"/"+this.atrybut3)
+                axios.get("http://localhost:2137/data/pcc/" + this.atrybut + "/" + this.atrybut3)
                     .then(response => this.data3 = response.data);
-                axios.get("http://localhost:2137/data/pcc/"+this.atrybut+"/"+this.atrybut4)
+                axios.get("http://localhost:2137/data/pcc/" + this.atrybut + "/" + this.atrybut4)
                     .then(response => this.data4 = response.data);
-                axios.get("http://localhost:2137/data/pcc/"+this.atrybut+"/"+this.atrybut5)
+                axios.get("http://localhost:2137/data/pcc/" + this.atrybut + "/" + this.atrybut5)
                     .then(response => this.data5 = response.data);
             }
         }
     })
 
-   new Vue({
-      el: "#pcc1",
-      data() {
-          return {
-              chartOptions: {
-                  chart: {
-                      type: 'heatmap',
-                      marginTop: 40,
-                      marginBottom: 80,
-                      plotBorderWidth: 1
-                  },
-                  title: {
-                      text: 'Entire title'
-                  },
-                  xAxis: {
-                      min: -0.5,
-                      max: 5.5
-                  },
-                  yAxis: {
-                      min: 0
-                  },
-                  series: [{
-                      type: 'line',
-                      name: 'Regression Line',
-                      data: [[0, 1.11], [5, 8.51]],
-                      marker: {
-                          enabled: false
-                      },
-                      states: {
-                          hover: {
-                              lineWidth: 0
-                          }
-                      },
-                      enableMouseTracking: false
-                  }, {
-                      type: 'scatter',
-                      name: 'Observations',
-                      data: [[0,1], [1,1.5]],
-                      marker: {
-                          radius: 4
-                      }
-                  }]
-              }
-          }
-      },
-      watch: {
-          title(newValue) {
-              if (newValue === '') {
-                  this.chartOptions.title.text = 'Entire title'
-              } else {
-                  this.chartOptions.title.text = newValue
-              }
+    new Vue({
+        el: "#pcc1",
+        data() {
+            return {
+                chartOptions: {
+                    chart: {
+                        type: 'heatmap',
+                        marginTop: 40,
+                        marginBottom: 80,
+                        plotBorderWidth: 1
+                    },
+                    title: {
+                        text: 'Entire title'
+                    },
+                    xAxis: {
+                        min: -0.5,
+                        max: 5.5
+                    },
+                    yAxis: {
+                        min: 0
+                    },
+                    series: [{
+                        type: 'line',
+                        name: 'Regression Line',
+                        data: [[0, 1.11], [5, 8.51]],
+                        marker: {
+                            enabled: false
+                        },
+                        states: {
+                            hover: {
+                                lineWidth: 0
+                            }
+                        },
+                        enableMouseTracking: false
+                    }, {
+                        type: 'scatter',
+                        name: 'Observations',
+                        data: [[0, 1], [1, 1.5]],
+                        marker: {
+                            radius: 4
+                        }
+                    }]
+                }
+            }
+        },
+        watch: {
+            title(newValue) {
+                if (newValue === '') {
+                    this.chartOptions.title.text = 'Entire title'
+                } else {
+                    this.chartOptions.title.text = newValue
+                }
 
-          }
-      }
-  })
+            }
+        }
+    })
 </script>
 
 </body>
