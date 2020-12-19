@@ -80,7 +80,7 @@ public class RESTService {
     @PutMapping(value = "/loaddatamodel/{id}", produces = "application/json",  consumes = "application/json", headers = "Accept=application/json")
     @ResponseBody
     public ResponseEntity EditData(@Valid @RequestBody EditDataJson editDataJson, @Valid @PathVariable String id) throws IOException {
-        //Todo: Sprawdzić, ilość rekordów 
+        //Todo: Sprawdzić, ilość rekordów
       DataModel dataModel =  dataModelRepository.findById(Long.parseLong(id));
         dataModel.setMap(editDataJson.getMaps());
         dataModel.setBomb_planted(editDataJson.getBomb_planted());
