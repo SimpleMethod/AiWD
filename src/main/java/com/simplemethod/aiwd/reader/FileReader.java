@@ -41,6 +41,12 @@ public class FileReader {
         put("CT", 0);
     }};
 
+    /**
+     * Parsuje dane i dodaje je do bazy danych
+     *
+     * @param path ścieżka do pliku csv
+     * @throws IOException
+     */
     public void ParseData(String path) throws IOException {
 
         try (

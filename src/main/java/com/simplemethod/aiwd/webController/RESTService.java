@@ -1,20 +1,19 @@
 package com.simplemethod.aiwd.webController;
 
-import com.simplemethod.aiwd.Services.CleanerService;
-import com.simplemethod.aiwd.Services.pngMaker;
+import com.simplemethod.aiwd.services.CleanerService;
+import com.simplemethod.aiwd.services.PNGMaker;
 import com.simplemethod.aiwd.model.*;
 import com.simplemethod.aiwd.reader.FileReader;
 import com.simplemethod.aiwd.repository.DataModelRepository;
-import com.sun.xml.bind.v2.TODO;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.validation.Valid;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -33,11 +32,19 @@ public class RESTService {
     EntityManager entityManager;
 
     @Autowired
-    pngMaker  pngMaker;
+    PNGMaker pngMaker;
 
     @Autowired
     CleanerService cleanerService;
 
+    /**
+     * Ladowanie plików z CSV do bazy danych
+     *
+     * @param filepath sciezka do pliku
+     * @return status operacji
+     * @throws IOException wyjatek
+     */
+    @Deprecated
     @GetMapping(value = "/loaddata/{attribute}", produces = "application/json")
     @ResponseBody
     public ResponseEntity LoaData(@Valid @PathVariable String filepath) throws IOException {
@@ -49,39 +56,52 @@ public class RESTService {
         return new ResponseEntity<>("File not found", HttpStatus.NOT_FOUND);
     }
 
-
-    @PostMapping(value = "/loaddatamodel", produces = "application/json",  consumes = "application/json", headers = "Accept=application/json")
+    /**
+     * Dododanie nowego obiektu do bazy danych
+     *
+     * @param editDataJson Objekt JSON z atrybutami
+     * @return Status operacji
+     * @throws IOException Wyjatek
+     */
+    @PostMapping(value = "/loaddatamodel", produces = "application/json", consumes = "application/json", headers = "Accept=application/json")
     @ResponseBody
-    public ResponseEntity LoaDataSQL( @Valid @RequestBody EditDataJson editDataJson) throws IOException {
+    public ResponseEntity LoaDataSQL(@Valid @RequestBody EditDataJson editDataJson) throws IOException {
         DataModel dataModel1 = new DataModel(0, 0, 0, editDataJson.getMaps(), editDataJson.getBomb_planted(), 0,
                 0, 0, 0, 0, 0, 0,
-                0,0, editDataJson.getCt_players_alive(), editDataJson.getT_players_alive(), 0,
-               0, 0, 0, 0, 0,
+                0, 0, editDataJson.getCt_players_alive(), editDataJson.getT_players_alive(), 0,
                 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0,
-                0, 0,0, 0, 0,
-               0, 0, 0,0, 0,
-                0, 0,0, 0, 0,
-               0,0, 0, 0, 0,
                 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0,
-                0,0, 0, 0, editDataJson.getCt_grenade_flashbang(),
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0,
+                0, 0, 0, 0, editDataJson.getCt_grenade_flashbang(),
                 editDataJson.getT_grenade_flashbang(), editDataJson.getCt_grenade_smokegrenade(), editDataJson.getT_grenade_smokegrenade(), 0,
                 0, 0, 0, 0,
                 0, editDataJson.getRound_winner());
         dataModelRepository.save(dataModel1);
-        return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping(value = "/loaddatamodel/{id}", produces = "application/json",  consumes = "application/json", headers = "Accept=application/json")
+    /**
+     * Ladowanie poprawionych danych
+     *
+     * @param editDataJson model zawierajcy atrybuty do edycji
+     * @param id           rekord w bazie danych
+     * @return status operacji
+     */
+    @PutMapping(value = "/loaddatamodel/{id}", produces = "application/json", consumes = "application/json", headers = "Accept=application/json")
     @ResponseBody
-    public ResponseEntity EditData(@Valid @RequestBody EditDataJson editDataJson, @Valid @PathVariable String id) throws IOException {
+    public ResponseEntity EditData(@Valid @RequestBody EditDataJson editDataJson, @Valid @PathVariable String id) {
         //Todo: Sprawdzić, ilość rekordów
-      DataModel dataModel =  dataModelRepository.findById(Long.parseLong(id));
+        DataModel dataModel = dataModelRepository.findById(Long.parseLong(id));
         dataModel.setMap(editDataJson.getMaps());
         dataModel.setBomb_planted(editDataJson.getBomb_planted());
         dataModel.setCt_players_alive(editDataJson.getCt_players_alive());
@@ -92,344 +112,227 @@ public class RESTService {
         dataModel.setT_grenade_smokegrenade(editDataJson.getT_grenade_smokegrenade());
         dataModel.setRound_winner(editDataJson.getRound_winner());
         dataModelRepository.save(dataModel);
-        return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    /**
+     * Wytworzenie obrazu na podstawie danych
+     *
+     * @param maps Atrybut mapy
+     * @return Objekt w postaci obrazu
+     */
     @GetMapping(value = "/pngmarker/{maps}", produces = "image/png")
     @ResponseBody
-    public ResponseEntity<byte[]> pngMarker(@Valid @PathVariable String maps) throws IOException {
+    public ResponseEntity<byte[]> pngMarker(@Valid @PathVariable String maps) {
 
-       if(!cleanerService.checkInteger(Integer.parseInt(maps),1,8))
-       {
-           return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-       }
+        if (!cleanerService.checkInteger(Integer.parseInt(maps), 1, 8)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
-        double ctAlive=0;
+        double ctAlive = 0;
 
-        double tAlive=0;
+        double tAlive = 0;
 
-        int winRound=0;
+        int winRound = 0;
 
-        double flashValue=0;
+        double flashValue = 0;
 
-        double smokeValue=0;
+        double smokeValue = 0;
 
-        Query ctAliveQuery = entityManager.createQuery("SELECT avg (ct_players_alive) FROM DataModel WHERE map="+maps);
+        Query ctAliveQuery = entityManager.createQuery("SELECT avg (ct_players_alive) FROM DataModel WHERE map=" + maps);
         double ctAliveValue = Double.parseDouble(ctAliveQuery.getResultList().get(0).toString());
 
-        if(ctAliveValue<0.5)
-        {
-            ctAlive=0.0;
-        }
-        else if(ctAliveValue>=0.5 && ctAliveValue<1.0)
-        {
-            ctAlive=0.5;
-        }
-        else if(ctAliveValue>=1 && ctAliveValue<1.5)
-        {
-            ctAlive=1.5;
-        }
-        else if(ctAliveValue>=1.5 && ctAliveValue<2.0)
-        {
-            ctAlive=2.0;
-        }
-        else if(ctAliveValue>=2.0 && ctAliveValue<2.5)
-        {
-            ctAlive=2.5;
-        }
-        else if(ctAliveValue>=2.5 && ctAliveValue<3.0)
-        {
-            ctAlive=3.0;
-        }
-        else if(ctAliveValue>=3.0 && ctAliveValue<3.5)
-        {
-            ctAlive=3.5;
-        }
-        else if(ctAliveValue>=3.5 && ctAliveValue<4.0)
-        {
-            ctAlive=4.0;
-        }
-        else if(ctAliveValue>=4.0 && ctAliveValue<4.5)
-        {
-            ctAlive=4.5;
-        }
-        else
-        {
-            ctAlive=5.0;
+        if (ctAliveValue < 0.5) {
+            ctAlive = 0.0;
+        } else if (ctAliveValue >= 0.5 && ctAliveValue < 1.0) {
+            ctAlive = 0.5;
+        } else if (ctAliveValue >= 1 && ctAliveValue < 1.5) {
+            ctAlive = 1.5;
+        } else if (ctAliveValue >= 1.5 && ctAliveValue < 2.0) {
+            ctAlive = 2.0;
+        } else if (ctAliveValue >= 2.0 && ctAliveValue < 2.5) {
+            ctAlive = 2.5;
+        } else if (ctAliveValue >= 2.5 && ctAliveValue < 3.0) {
+            ctAlive = 3.0;
+        } else if (ctAliveValue >= 3.0 && ctAliveValue < 3.5) {
+            ctAlive = 3.5;
+        } else if (ctAliveValue >= 3.5 && ctAliveValue < 4.0) {
+            ctAlive = 4.0;
+        } else if (ctAliveValue >= 4.0 && ctAliveValue < 4.5) {
+            ctAlive = 4.5;
+        } else {
+            ctAlive = 5.0;
         }
 
-        Query tAliveQuery = entityManager.createQuery("SELECT avg(t_players_alive) FROM DataModel WHERE map="+maps);
+        Query tAliveQuery = entityManager.createQuery("SELECT avg(t_players_alive) FROM DataModel WHERE map=" + maps);
         double tAliveValue = Double.parseDouble(tAliveQuery.getResultList().get(0).toString());
 
-        if(tAliveValue<0.5)
-        {
-            tAlive=0.0;
-        }
-        else if(tAliveValue>=0.5 && tAliveValue<1.0)
-        {
-            tAlive=0.5;
-        }
-        else if(tAliveValue>=1 && tAliveValue<1.5)
-        {
-            tAlive=1.5;
-        }
-        else if(tAliveValue>=1.5 && tAliveValue<2.0)
-        {
-            tAlive=2.0;
-        }
-        else if(tAliveValue>=2.0 && tAliveValue<2.5)
-        {
-            tAlive=2.5;
-        }
-        else if(tAliveValue>=2.5 && tAliveValue<3.0)
-        {
-            tAlive=3.0;
-        }
-        else if(tAliveValue>=3.0 && tAliveValue<3.5)
-        {
-            tAlive=3.5;
-        }
-        else if(tAliveValue>=3.5 && tAliveValue<4.0)
-        {
-            tAlive=4.0;
-        }
-        else if(tAliveValue>=4.0 && tAliveValue<4.5)
-        {
-            tAlive=4.5;
-        }
-        else
-        {
-            tAlive=5.0;
+        if (tAliveValue < 0.5) {
+            tAlive = 0.0;
+        } else if (tAliveValue >= 0.5 && tAliveValue < 1.0) {
+            tAlive = 0.5;
+        } else if (tAliveValue >= 1 && tAliveValue < 1.5) {
+            tAlive = 1.5;
+        } else if (tAliveValue >= 1.5 && tAliveValue < 2.0) {
+            tAlive = 2.0;
+        } else if (tAliveValue >= 2.0 && tAliveValue < 2.5) {
+            tAlive = 2.5;
+        } else if (tAliveValue >= 2.5 && tAliveValue < 3.0) {
+            tAlive = 3.0;
+        } else if (tAliveValue >= 3.0 && tAliveValue < 3.5) {
+            tAlive = 3.5;
+        } else if (tAliveValue >= 3.5 && tAliveValue < 4.0) {
+            tAlive = 4.0;
+        } else if (tAliveValue >= 4.0 && tAliveValue < 4.5) {
+            tAlive = 4.5;
+        } else {
+            tAlive = 5.0;
         }
 
 
-
-        Query ctFlashQuery = entityManager.createQuery("SELECT avg(ct_grenade_flashbang) FROM DataModel WHERE map="+maps);
+        Query ctFlashQuery = entityManager.createQuery("SELECT avg(ct_grenade_flashbang) FROM DataModel WHERE map=" + maps);
         double ctFlashValue = Double.parseDouble(ctFlashQuery.getResultList().get(0).toString());
-        Query tFlashQuery = entityManager.createQuery("SELECT avg(t_grenade_flashbang) FROM DataModel WHERE map="+maps);
+        Query tFlashQuery = entityManager.createQuery("SELECT avg(t_grenade_flashbang) FROM DataModel WHERE map=" + maps);
         double tFlashValue = Double.parseDouble(tFlashQuery.getResultList().get(0).toString());
 
-        double flashSum=ctFlashValue+tFlashValue;
+        double flashSum = ctFlashValue + tFlashValue;
 
-        if(flashSum<0.5)
-        {
-            flashValue=0.0;
-        }
-        else if(flashSum>=0.5 && flashSum<1.0)
-        {
-            flashValue=0.5;
-        }
-        else if(flashSum>=1 && flashSum<1.5)
-        {
-            flashValue=1.0;
-        }
-        else if(flashSum>=1.5 && flashSum<2.0)
-        {
-            flashValue=1.5;
-        }
-        else if(flashSum>=2.0 && flashSum<2.5)
-        {
-            flashValue=2.0;
-        }
-        else if(flashSum>=2.5 && flashSum<3.0)
-        {
-            flashValue=2.5;
-        }
-        else if(flashSum>=3.0 && flashSum<3.5)
-        {
-            flashValue=3.0;
-        }
-        else if(flashSum>=3.5 && flashSum<4.0)
-        {
-            flashValue=3.5;
-        }
-        else if(flashSum>=4.0 && flashSum<4.5)
-        {
-            flashValue=4.0;
-        }
-        else if(flashSum>=4.5 && flashSum<5.0)
-        {
-            flashValue=4.5;
-        }
-        else if(flashSum>=5.0 && flashSum<5.5)
-        {
-            flashValue=5.0;
-        }
-        else if(flashSum>=5.5 && flashSum<6.0)
-        {
-            flashValue=5.5;
-        }
-        else if(flashSum>=6.0 && flashSum<6.5)
-        {
-            flashValue=6.0;
-        }
-        else if(flashSum>=6.5 && flashSum<7.0)
-        {
-            flashValue=6.5;
-        }
-        else if(flashSum>=7.0 && flashSum<7.5)
-        {
-            flashValue=7.0;
-        }
-        else if(flashSum>=7.5 && flashSum<8.0)
-        {
-            flashValue=7.5;
-        }
-        else if(flashSum>=8.0 && flashSum<8.5)
-        {
-            flashValue=8.0;
-        }
-        else if(flashSum>=8.5 && flashSum<9.0)
-        {
-            flashValue=8.5;
-        }
-        else if(flashSum>=9.0 && flashSum<9.5)
-        {
-            flashValue=9.0;
-        }
-        else if(flashSum>=9.5 && flashSum<10.0)
-        {
-            flashValue=9.5;
-        }
-        else
-        {
-            flashValue=10.0;
+        if (flashSum < 0.5) {
+            flashValue = 0.0;
+        } else if (flashSum >= 0.5 && flashSum < 1.0) {
+            flashValue = 0.5;
+        } else if (flashSum >= 1 && flashSum < 1.5) {
+            flashValue = 1.0;
+        } else if (flashSum >= 1.5 && flashSum < 2.0) {
+            flashValue = 1.5;
+        } else if (flashSum >= 2.0 && flashSum < 2.5) {
+            flashValue = 2.0;
+        } else if (flashSum >= 2.5 && flashSum < 3.0) {
+            flashValue = 2.5;
+        } else if (flashSum >= 3.0 && flashSum < 3.5) {
+            flashValue = 3.0;
+        } else if (flashSum >= 3.5 && flashSum < 4.0) {
+            flashValue = 3.5;
+        } else if (flashSum >= 4.0 && flashSum < 4.5) {
+            flashValue = 4.0;
+        } else if (flashSum >= 4.5 && flashSum < 5.0) {
+            flashValue = 4.5;
+        } else if (flashSum >= 5.0 && flashSum < 5.5) {
+            flashValue = 5.0;
+        } else if (flashSum >= 5.5 && flashSum < 6.0) {
+            flashValue = 5.5;
+        } else if (flashSum >= 6.0 && flashSum < 6.5) {
+            flashValue = 6.0;
+        } else if (flashSum >= 6.5 && flashSum < 7.0) {
+            flashValue = 6.5;
+        } else if (flashSum >= 7.0 && flashSum < 7.5) {
+            flashValue = 7.0;
+        } else if (flashSum >= 7.5 && flashSum < 8.0) {
+            flashValue = 7.5;
+        } else if (flashSum >= 8.0 && flashSum < 8.5) {
+            flashValue = 8.0;
+        } else if (flashSum >= 8.5 && flashSum < 9.0) {
+            flashValue = 8.5;
+        } else if (flashSum >= 9.0 && flashSum < 9.5) {
+            flashValue = 9.0;
+        } else if (flashSum >= 9.5 && flashSum < 10.0) {
+            flashValue = 9.5;
+        } else {
+            flashValue = 10.0;
         }
 
-        Query ctSmokeQuery = entityManager.createQuery("SELECT avg(ct_grenade_smokegrenade) FROM DataModel WHERE map="+maps);
+        Query ctSmokeQuery = entityManager.createQuery("SELECT avg(ct_grenade_smokegrenade) FROM DataModel WHERE map=" + maps);
         double ctSmokeValue = Double.parseDouble(ctSmokeQuery.getResultList().get(0).toString());
-        Query tSmokeQuery = entityManager.createQuery("SELECT avg(t_grenade_smokegrenade) FROM DataModel WHERE map="+maps);
+        Query tSmokeQuery = entityManager.createQuery("SELECT avg(t_grenade_smokegrenade) FROM DataModel WHERE map=" + maps);
         double tSmokeValue = Double.parseDouble(tSmokeQuery.getResultList().get(0).toString());
 
-        double smokeSumValue=ctSmokeValue+tSmokeValue;
+        double smokeSumValue = ctSmokeValue + tSmokeValue;
 
-        if(smokeSumValue<0.5)
-        {
-            smokeValue=0.0;
+        if (smokeSumValue < 0.5) {
+            smokeValue = 0.0;
+        } else if (smokeSumValue >= 0.5 && smokeSumValue < 1.0) {
+            smokeValue = 0.5;
+        } else if (smokeSumValue >= 1 && smokeSumValue < 1.5) {
+            smokeValue = 1.0;
+        } else if (smokeSumValue >= 1.5 && smokeSumValue < 2.0) {
+            smokeValue = 1.5;
+        } else if (smokeSumValue >= 2.0 && smokeSumValue < 2.5) {
+            smokeValue = 2.0;
+        } else if (smokeSumValue >= 2.5 && smokeSumValue < 3.0) {
+            smokeValue = 2.5;
+        } else if (smokeSumValue >= 3.0 && smokeSumValue < 3.5) {
+            smokeValue = 3.0;
+        } else if (smokeSumValue >= 3.5 && smokeSumValue < 4.0) {
+            smokeValue = 3.5;
+        } else if (smokeSumValue >= 4.0 && smokeSumValue < 4.5) {
+            smokeValue = 4.0;
+        } else if (smokeSumValue >= 4.5 && smokeSumValue < 5.0) {
+            smokeValue = 4.5;
+        } else if (smokeSumValue >= 5.0 && smokeSumValue < 5.5) {
+            smokeValue = 5.0;
+        } else if (smokeSumValue >= 5.5 && smokeSumValue < 6.0) {
+            smokeValue = 5.5;
+        } else if (smokeSumValue >= 6.0 && smokeSumValue < 6.5) {
+            smokeValue = 6.0;
+        } else if (smokeSumValue >= 6.5 && smokeSumValue < 7.0) {
+            smokeValue = 6.5;
+        } else if (smokeSumValue >= 7.0 && smokeSumValue < 7.5) {
+            smokeValue = 7.0;
+        } else if (smokeSumValue >= 7.5 && smokeSumValue < 8.0) {
+            smokeValue = 7.5;
+        } else if (smokeSumValue >= 8.0 && smokeSumValue < 8.5) {
+            smokeValue = 8.0;
+        } else if (smokeSumValue >= 8.5 && smokeSumValue < 9.0) {
+            smokeValue = 8.5;
+        } else if (smokeSumValue >= 9.0 && smokeSumValue < 9.5) {
+            smokeValue = 9.0;
+        } else if (smokeSumValue >= 9.5 && smokeSumValue < 10.0) {
+            smokeValue = 9.5;
+        } else {
+            smokeValue = 10.0;
         }
-        else if(smokeSumValue>=0.5 && smokeSumValue<1.0)
-        {
-            smokeValue=0.5;
-        }
-        else if(smokeSumValue>=1 && smokeSumValue<1.5)
-        {
-            smokeValue=1.0;
-        }
-        else if(smokeSumValue>=1.5 && smokeSumValue<2.0)
-        {
-            smokeValue=1.5;
-        }
-        else if(smokeSumValue>=2.0 && smokeSumValue<2.5)
-        {
-            smokeValue=2.0;
-        }
-        else if(smokeSumValue>=2.5 && smokeSumValue<3.0)
-        {
-            smokeValue=2.5;
-        }
-        else if(smokeSumValue>=3.0 && smokeSumValue<3.5)
-        {
-            smokeValue=3.0;
-        }
-        else if(smokeSumValue>=3.5 && smokeSumValue<4.0)
-        {
-            smokeValue=3.5;
-        }
-        else if(smokeSumValue>=4.0 && smokeSumValue<4.5)
-        {
-            smokeValue=4.0;
-        }
-        else if(smokeSumValue>=4.5 && smokeSumValue<5.0)
-        {
-            smokeValue=4.5;
-        }
-        else if(smokeSumValue>=5.0 && smokeSumValue<5.5)
-        {
-            smokeValue=5.0;
-        }
-        else if(smokeSumValue>=5.5 && smokeSumValue<6.0)
-        {
-            smokeValue=5.5;
-        }
-        else if(smokeSumValue>=6.0 && smokeSumValue<6.5)
-        {
-            smokeValue=6.0;
-        }
-        else if(smokeSumValue>=6.5 && smokeSumValue<7.0)
-        {
-            smokeValue=6.5;
-        }
-        else if(smokeSumValue>=7.0 && smokeSumValue<7.5)
-        {
-            smokeValue=7.0;
-        }
-        else if(smokeSumValue>=7.5 && smokeSumValue<8.0)
-        {
-            smokeValue=7.5;
-        }
-        else if(smokeSumValue>=8.0 && smokeSumValue<8.5)
-        {
-            smokeValue=8.0;
-        }
-        else if(smokeSumValue>=8.5 && smokeSumValue<9.0)
-        {
-            smokeValue=8.5;
-        }
-        else if(smokeSumValue>=9.0 && smokeSumValue<9.5)
-        {
-            smokeValue=9.0;
-        }
-        else if(smokeSumValue>=9.5 && smokeSumValue<10.0)
-        {
-            smokeValue=9.5;
-        }
-        else
-        {
-            smokeValue=10.0;
-        }
-
-        Query tWinQuery = entityManager.createQuery("SELECT COUNT(round_winner) FROM DataModel WHERE round_winner=1 AND map="+maps);
+        Query tWinQuery = entityManager.createQuery("SELECT COUNT(round_winner) FROM DataModel WHERE round_winner=1 AND map=" + maps);
         double tWinValue = Double.parseDouble(tWinQuery.getResultList().get(0).toString());
-
-        Query ctWinQuery = entityManager.createQuery("SELECT COUNT(round_winner) FROM DataModel WHERE round_winner=0 AND map="+maps);
+        Query ctWinQuery = entityManager.createQuery("SELECT COUNT(round_winner) FROM DataModel WHERE round_winner=0 AND map=" + maps);
         double ctWinValue = Double.parseDouble(ctWinQuery.getResultList().get(0).toString());
-
-        if(ctWinValue>tWinValue)
-        {
-            winRound=0;
+        if (ctWinValue > tWinValue) {
+            winRound = 0;
+        } else {
+            winRound = 1;
         }
-        else
-        {
-            winRound=1;
-        }
-        System.out.println("CT Alive:"+ctAliveValue);
-        System.out.println("CT Alive ARG:"+ctAlive);
-        System.out.println("T Alive:"+tAliveValue);
-        System.out.println("T Alive ARG:"+tAlive);
-        System.out.println("Flash CT:"+ctFlashValue);
-        System.out.println("Flash T:"+tFlashValue);
-        System.out.println("Flash SUM AVG:"+flashSum);
-        System.out.println("Flash ARG:"+flashValue);
-        System.out.println("Smoke CT:"+ctSmokeValue);
-        System.out.println("Smoke T:"+tSmokeValue);
-        System.out.println("Smoke SUM AVG:"+smokeSumValue);
-        System.out.println("Smoke ARG:"+smokeValue);
-        System.out.println("CT WIN:"+ctWinValue);
-        System.out.println("T WIN:"+tWinValue);
-        System.out.println("Arg WIN:"+winRound);
-
-        byte[] bytes =  pngMaker.makePng(ctAlive,tAlive,winRound,flashValue,smokeValue,Integer.parseInt(maps));
-
+        /*
+        System.out.println("CT Alive:" + ctAliveValue);
+        System.out.println("CT Alive ARG:" + ctAlive);
+        System.out.println("T Alive:" + tAliveValue);
+        System.out.println("T Alive ARG:" + tAlive);
+        System.out.println("Flash CT:" + ctFlashValue);
+        System.out.println("Flash T:" + tFlashValue);
+        System.out.println("Flash SUM AVG:" + flashSum);
+        System.out.println("Flash ARG:" + flashValue);
+        System.out.println("Smoke CT:" + ctSmokeValue);
+        System.out.println("Smoke T:" + tSmokeValue);
+        System.out.println("Smoke SUM AVG:" + smokeSumValue);
+        System.out.println("Smoke ARG:" + smokeValue);
+        System.out.println("CT WIN:" + ctWinValue);
+        System.out.println("T WIN:" + tWinValue);
+        System.out.println("Arg WIN:" + winRound);
+        */
+        byte[] bytes = pngMaker.makePng(ctAlive, tAlive, winRound, flashValue, smokeValue, Integer.parseInt(maps));
         return new ResponseEntity<>(bytes, HttpStatus.OK);
     }
 
+    /**
+     * Wyznaczenie dla zmiennych statystyk opisowych
+     *
+     * @param attribute Określony atrybut
+     * @return Objekt JSON z danymi
+     */
     @GetMapping(value = "/data/{attribute}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<ResponseModel> getRecord(@Valid @PathVariable String attribute) {
 
-        if(!cleanerService.checkArgs(attribute))
-        {
-            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (!cleanerService.checkArgs(attribute)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         Query minValueQuery = entityManager.createQuery("SELECT min(" + attribute + ") FROM DataModel");
@@ -455,63 +358,72 @@ public class RESTService {
         return new ResponseEntity<>(responseModel, HttpStatus.OK);
     }
 
+    /**
+     * Wyznaczenie dla zmiennych statystyk opisowych danych dla określonej mapy
+     *
+     * @param attribute Określony atrybut
+     * @param maps      Określona mapa
+     * @return Objekt JSON z danymi
+     */
     @GetMapping(value = "/dataonmape/{attribute}/{maps}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<ResponseModel> getRecordMape(@Valid @PathVariable String attribute, @PathVariable String maps) {
 
-        if(!cleanerService.checkArgs(attribute) || !cleanerService.checkInteger(Integer.parseInt(maps),1,8))
-        {
-            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (!cleanerService.checkArgs(attribute) || !cleanerService.checkInteger(Integer.parseInt(maps), 1, 8)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Query minValueQuery = entityManager.createQuery("SELECT min(" + attribute + ") FROM DataModel where map="+ maps);
-        Query maxValueQuery = entityManager.createQuery("SELECT max(" + attribute + ") FROM DataModel where map="+ maps);
-        Query avgValueQuery = entityManager.createQuery("SELECT avg (" + attribute + ") FROM DataModel where map="+ maps);
-        Query percentileQ1ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.25* @row_num) AND map="+ maps);
-        Query percentileQ2ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.50* @row_num) AND map="+ maps);
-        Query percentileQ3ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.75* @row_num) AND map="+ maps);
-        Query percentile1ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.1* @row_num) AND map="+ maps);
+        Query minValueQuery = entityManager.createQuery("SELECT min(" + attribute + ") FROM DataModel where map=" + maps);
+        Query maxValueQuery = entityManager.createQuery("SELECT max(" + attribute + ") FROM DataModel where map=" + maps);
+        Query avgValueQuery = entityManager.createQuery("SELECT avg (" + attribute + ") FROM DataModel where map=" + maps);
+        Query percentileQ1ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.25* @row_num) AND map=" + maps);
+        Query percentileQ2ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.50* @row_num) AND map=" + maps);
+        Query percentileQ3ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.75* @row_num) AND map=" + maps);
+        Query percentile1ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.1* @row_num) AND map=" + maps);
 
-        Query percentile9ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.9* @row_num) AND map="+ maps);
+        Query percentile9ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.9* @row_num) AND map=" + maps);
         double minValue = Double.parseDouble(minValueQuery.getResultList().get(0).toString());
         double maxValue = Double.parseDouble(maxValueQuery.getResultList().get(0).toString());
         double avgValue = roundAvoid(Double.parseDouble(avgValueQuery.getResultList().get(0).toString()), 2);
-        double percentileQ1Value=0;
-        double percentileQ2Value=0;
-        double percentileQ3Value=0;
-        double percentile1Value=0;
-        double percentile9Value=0;
-        double percentileIRQ=0;
-        double belowPoint=0;
-        double abovePoint=0;
+        double percentileQ1Value = 0;
+        double percentileQ2Value = 0;
+        double percentileQ3Value = 0;
+        double percentile1Value = 0;
+        double percentile9Value = 0;
+        double percentileIRQ = 0;
+        double belowPoint = 0;
+        double abovePoint = 0;
 
         try {
-             percentileQ1Value = Double.parseDouble(percentileQ1ValueQuery.getResultList().get(0).toString());
-             percentileQ2Value = Double.parseDouble(percentileQ2ValueQuery.getResultList().get(0).toString());
-             percentileQ3Value = Double.parseDouble(percentileQ3ValueQuery.getResultList().get(0).toString());
-             percentile1Value = Double.parseDouble(percentile1ValueQuery.getResultList().get(0).toString());
-             percentile9Value = Double.parseDouble(percentile9ValueQuery.getResultList().get(0).toString());
-             percentileIRQ = percentileQ3Value - percentileQ1Value;
-             belowPoint = percentileQ1Value - 1.5; //* percentileIRQ;
-             abovePoint = percentileQ3Value + 1.5; //* percentileIRQ;
-        }
-        catch (IndexOutOfBoundsException ignore)
-        {
+            percentileQ1Value = Double.parseDouble(percentileQ1ValueQuery.getResultList().get(0).toString());
+            percentileQ2Value = Double.parseDouble(percentileQ2ValueQuery.getResultList().get(0).toString());
+            percentileQ3Value = Double.parseDouble(percentileQ3ValueQuery.getResultList().get(0).toString());
+            percentile1Value = Double.parseDouble(percentile1ValueQuery.getResultList().get(0).toString());
+            percentile9Value = Double.parseDouble(percentile9ValueQuery.getResultList().get(0).toString());
+            percentileIRQ = percentileQ3Value - percentileQ1Value;
+            belowPoint = percentileQ1Value - 1.5; //* percentileIRQ;
+            abovePoint = percentileQ3Value + 1.5; //* percentileIRQ;
+        } catch (IndexOutOfBoundsException ignore) {
         }
 
         ResponseModel responseModel = new ResponseModel(minValue, maxValue, avgValue, percentileQ1Value, percentileQ2Value, percentileQ3Value, percentileIRQ, belowPoint, abovePoint, attribute, percentile1Value, percentile9Value);
         return new ResponseEntity<>(responseModel, HttpStatus.OK);
     }
 
+    /**
+     * Wyznaczenie współczynnika korelacji liniowej Pearsona
+     *
+     * @param attribute  Pierwszy atrybut
+     * @param attribute2 Drugi atrybuy
+     * @return Objekt JSON z danymi atrybutami
+     */
     @GetMapping(value = "/data/pcc/{attribute}/{attribute2}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<PearsonModel> getPearson(@Valid @PathVariable String attribute, @Valid @PathVariable String attribute2) {
 
-        if(!cleanerService.checkArgs(attribute) || !cleanerService.checkArgs(attribute2))
-        {
-            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (!cleanerService.checkArgs(attribute) || !cleanerService.checkArgs(attribute2)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
 
         Query sumXQuery = entityManager.createQuery("SELECT sum(" + attribute + ") FROM DataModel");
         Query powerXQuery = entityManager.createNativeQuery("SELECT sum(power(" + attribute + ",2)) FROM DataModel");
@@ -534,22 +446,26 @@ public class RESTService {
     }
 
 
+    /**
+     * Przeprowadzenie prostej regresji liniowej na podstwie dwóch argumentów
+     *
+     * @param attribute  Pierwszy argument przeznaczony do przeprowadzenia regresji liniowej
+     * @param attribute2 Drugi argument do przeprowadzenia regresji liniowej
+     * @param attribute3 Wartość oczekiwania dla atrybutu
+     * @return Object JSON z wartości regresji
+     */
     @GetMapping(value = "/data/linearregression/{attribute}/{attribute2}/{attribute3}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<LinearRegressionModel> getLinearRegression(@Valid @PathVariable String attribute, @Valid @PathVariable String attribute2, @Valid @PathVariable double attribute3) {
 
-        if(!cleanerService.checkArgs(attribute) || !cleanerService.checkArgs(attribute2))
-        {
-            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (!cleanerService.checkArgs(attribute) || !cleanerService.checkArgs(attribute2)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
-
         Query sumXQuery = entityManager.createQuery("SELECT sum(" + attribute + ") FROM DataModel");
         Query powerXQuery = entityManager.createNativeQuery("SELECT sum(power(" + attribute + ",2)) FROM DataModel");
         Query sumYQuery = entityManager.createQuery("SELECT sum(" + attribute2 + ") FROM DataModel");
         Query sumXYQuery = entityManager.createQuery("SELECT sum(" + attribute + "*" + attribute2 + ") FROM DataModel");
         Query countRecords = entityManager.createQuery("SELECT count(id) FROM DataModel");
-
         Query avgXQuery = entityManager.createQuery("SELECT avg(" + attribute + ") FROM DataModel");
         Query avgYXQuery = entityManager.createQuery("SELECT avg(" + attribute2 + ") FROM DataModel");
         double sumXValue = Double.parseDouble(sumXQuery.getResultList().get(0).toString());
@@ -557,30 +473,30 @@ public class RESTService {
         double sumYValue = Double.parseDouble(sumYQuery.getResultList().get(0).toString());
         double sumXYValue = Double.parseDouble(sumXYQuery.getResultList().get(0).toString());
         double countRecordsValue = Double.parseDouble(countRecords.getResultList().get(0).toString());
-
         double avgXValue = Double.parseDouble(avgXQuery.getResultList().get(0).toString());
         double avgYValue = Double.parseDouble(avgYXQuery.getResultList().get(0).toString());
-
         double numeratorValue = countRecordsValue * sumXYValue - sumXValue * sumYValue;
         double denominatorValue = countRecordsValue * powerXValue - Math.pow(sumXValue, 2);
         double linearRegressionBArgs = numeratorValue / denominatorValue;
-        //   double linearRegressionAArgs=(sumYValue/countRecordsValue)-linearRegressionBArgs*(sumXValue/countRecordsValue);
         double linearRegressionAArgs = (avgYValue) - linearRegressionBArgs * (avgXValue);
         double linearRegressionYArgs = roundAvoid(linearRegressionAArgs + linearRegressionBArgs * attribute3, 3);
-
         LinearRegressionModel linearRegressionModel = new LinearRegressionModel(attribute, attribute2, attribute3, linearRegressionYArgs, linearRegressionAArgs, linearRegressionBArgs);
         return new ResponseEntity<>(linearRegressionModel, HttpStatus.OK);
     }
 
+    /**
+     * Obliczenie użyć bronii dla określonej strony
+     *
+     * @param attribute strona T albo CT
+     * @return Objekt JSON z danymi
+     */
     @GetMapping(value = "/data/weapons/{attribute}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<JSONObject> getWeaponsUsage(@Valid @PathVariable String attribute) {
 
-        if(!cleanerService.checkArgsSite(attribute))
-        {
-            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (!cleanerService.checkArgsSite(attribute)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
         Query grenade_decoygrenade = entityManager.createQuery("SELECT sum(" + attribute + "_grenade_decoygrenade) FROM DataModel");
         double grenade_decoygrenadeValue = Double.parseDouble(grenade_decoygrenade.getResultList().get(0).toString());
         Query grenade_flashbang = entityManager.createQuery("SELECT sum(" + attribute + "_grenade_flashbang) FROM DataModel");
@@ -668,7 +584,6 @@ public class RESTService {
 
         JSONObject object = new JSONObject();
         List<WeaponsSimpleModel> weaponsSimpleModels = new ArrayList<>();
-
         weaponsSimpleModels.add(new WeaponsSimpleModel("decoygrenade", grenade_decoygrenadeValue, "decoygrenade"));
         weaponsSimpleModels.add(new WeaponsSimpleModel("flashbang", grenade_flashbangValue, "flashbang"));
         weaponsSimpleModels.add(new WeaponsSimpleModel("hegrenade", grenade_hegrenadeValue, "hegrenade"));
@@ -712,13 +627,15 @@ public class RESTService {
         weaponsSimpleModels.add(new WeaponsSimpleModel("ump45", weapon_ump45Value, "ump45"));
         weaponsSimpleModels.add(new WeaponsSimpleModel("usps", weapon_uspsValue, "usps"));
         weaponsSimpleModels.add(new WeaponsSimpleModel("xm1014", weapon_xm1014Value, "xm1014"));
-
         object.appendField("jsonarray", weaponsSimpleModels);
         return new ResponseEntity<>(object, HttpStatus.OK);
-
-
     }
 
+    /**
+     * Okreśelnie na podstawie danych kto wygrał rundę
+     *
+     * @return Zwrócenie informacji o ilości wygranych rund dla strony T oraz CT
+     */
     @GetMapping(value = "/data/roundwinner", produces = "application/json")
     @ResponseBody
     public ResponseEntity<JSONObject> getRoundWinner() {
@@ -738,13 +655,21 @@ public class RESTService {
         return new ResponseEntity<>(object, HttpStatus.OK);
     }
 
+
+    /**
+     * Przeprowadzenie prostej regresji liniowej na podstwie dwóch argumentów
+     *
+     * @param attribute  Pierwszy argument przeznaczony do przeprowadzenia regresji liniowej
+     * @param attribute2 Drugi argument do przeprowadzenia regresji liniowej
+     * @return Model danych zawierających
+     */
+    @Deprecated
     @GetMapping(value = "/data/linearregression/{attribute}/{attribute2}", produces = "application/json")
     @ResponseBody
     public ResponseEntity<List<BigDecimal>> getLinearRegressionAtribute(@Valid @PathVariable String attribute, @Valid @PathVariable String attribute2) {
 
-        if(!cleanerService.checkArgs(attribute) || !cleanerService.checkArgs(attribute2))
-        {
-            return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        if (!cleanerService.checkArgs(attribute) || !cleanerService.checkArgs(attribute2)) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         Query countRecords = entityManager.createQuery("SELECT count(id) FROM DataModel");

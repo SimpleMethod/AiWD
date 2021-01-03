@@ -12,11 +12,5 @@ public class AiwdApplication {
 
     public static void main(String[] args) throws IOException {
         SpringApplication.run(AiwdApplication.class, args);
-
-
     }
-
-
-
-
 }

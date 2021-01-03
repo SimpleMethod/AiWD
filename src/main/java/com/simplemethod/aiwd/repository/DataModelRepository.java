@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface DataModelRepository  extends JpaRepository<DataModel, Long> {
+public interface DataModelRepository extends JpaRepository<DataModel, Long> {
 
     DataModel findById(long ID);
 
@@ -24,10 +24,10 @@ public interface DataModelRepository  extends JpaRepository<DataModel, Long> {
     public BigDecimal min_Ct_score();
 
     @Query(value = "SELECT * FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY :args) temp WHERE temp.row_num=ROUND (:percentile* @row_num)", nativeQuery = true)
-    DataModel getPercentile(@Param("percentile") double percentile,@Param("args") String args);
+    DataModel getPercentile(@Param("percentile") double percentile, @Param("args") String args);
 
     @Query(value = "SELECT :args FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY :args) temp WHERE temp.row_num=ROUND (:percentile* @row_num)", nativeQuery = true)
-    Optional<String> getPercentileValue(@Param("percentile") double percentile, @Param("args") String args );
+    Optional<String> getPercentileValue(@Param("percentile") double percentile, @Param("args") String args);
 
     @Query(value = "SELECT ct_armor FROM DataModel")
     public List<BigDecimal> getAllByct_armor();
@@ -43,7 +43,6 @@ public interface DataModelRepository  extends JpaRepository<DataModel, Long> {
 
     @Query(value = "SELECT avg(:args) FROM DataModel", nativeQuery = true)
     public DataModel getAvgValue(@Param("args") String args);
-
 
 
 }

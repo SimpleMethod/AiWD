@@ -9,55 +9,59 @@
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"
+            integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"
+            integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj"
+            crossorigin="anonymous"></script>
 </head>
 <body class="py-4">
 
 <div class="container">
 
-<!--
-    <h1>Lista atrybutów</h1><br>
-    <div class="row mb-3">
-        <div class="col-md-8 themed-grid-col"><p>
-            time_left,ct_score,t_score,map,bomb_planted,ct_health,t_health,ct_armor,t_armor,ct_money,t_money,ct_helmets,t_helmets,ct_defuse_kits,ct_players_alive,t_players_alive,ct_weapon_ak47</p>
-            <p>
-                t_weapon_ak47,ct_weapon_aug,t_weapon_aug,ct_weapon_awp,t_weapon_awp,ct_weapon_bizon,t_weapon_bizon,ct_weapon_cz75auto,t_weapon_cz75auto,ct_weapon_elite,t_weapon_elite,ct_weapon_famas,</p>
-            <p>
-                t_weapon_famas,ct_weapon_g3sg1,t_weapon_g3sg1,ct_weapon_galilar,t_weapon_galilar,ct_weapon_glock,t_weapon_glock,ct_weapon_m249,t_weapon_m249,ct_weapon_m4a1s,t_weapon_m4a1s,ct_weapon_m4a4,</p>
-            <p>
-                t_weapon_m4a4,ct_weapon_mac10,t_weapon_mac10,ct_weapon_mag7,t_weapon_mag7,ct_weapon_mp5sd,t_weapon_mp5sd,ct_weapon_mp7,t_weapon_mp7,ct_weapon_mp9,t_weapon_mp9,ct_weapon_negev,</p>
-            <p>
-                t_weapon_negev,ct_weapon_nova,t_weapon_nova,ct_weapon_p90,t_weapon_p90,ct_weapon_r8revolver,t_weapon_r8revolver,ct_weapon_sawedoff,t_weapon_sawedoff,ct_weapon_scar20,t_weapon_scar20,</p>
-            <p>
-                ct_weapon_sg553,t_weapon_sg553,ct_weapon_ssg08,t_weapon_ssg08,ct_weapon_ump45,t_weapon_ump45,ct_weapon_xm1014,t_weapon_xm1014,ct_weapon_deagle,t_weapon_deagle,ct_weapon_fiveseven,</p>
-            <p>
-                t_weapon_fiveseven,ct_weapon_usps,t_weapon_usps,ct_weapon_p250,t_weapon_p250,ct_weapon_p2000,t_weapon_p2000,ct_weapon_tec9,t_weapon_tec9,ct_grenade_hegrenade,t_grenade_hegrenade,</p>
-            <p>
-                ct_grenade_flashbang,t_grenade_flashbang,ct_grenade_smokegrenade,t_grenade_smokegrenade,ct_grenade_incendiarygrenade,t_grenade_incendiarygrenade,ct_grenade_molotovgrenade,</p>
-            <p>
-                t_grenade_molotovgrenade,ct_grenade_decoygrenade,t_grenade_decoygrenade,round_winner</p>
-            <br><br>
+    <!--
+        <h1>Lista atrybutów</h1><br>
+        <div class="row mb-3">
+            <div class="col-md-8 themed-grid-col"><p>
+                time_left,ct_score,t_score,map,bomb_planted,ct_health,t_health,ct_armor,t_armor,ct_money,t_money,ct_helmets,t_helmets,ct_defuse_kits,ct_players_alive,t_players_alive,ct_weapon_ak47</p>
+                <p>
+                    t_weapon_ak47,ct_weapon_aug,t_weapon_aug,ct_weapon_awp,t_weapon_awp,ct_weapon_bizon,t_weapon_bizon,ct_weapon_cz75auto,t_weapon_cz75auto,ct_weapon_elite,t_weapon_elite,ct_weapon_famas,</p>
+                <p>
+                    t_weapon_famas,ct_weapon_g3sg1,t_weapon_g3sg1,ct_weapon_galilar,t_weapon_galilar,ct_weapon_glock,t_weapon_glock,ct_weapon_m249,t_weapon_m249,ct_weapon_m4a1s,t_weapon_m4a1s,ct_weapon_m4a4,</p>
+                <p>
+                    t_weapon_m4a4,ct_weapon_mac10,t_weapon_mac10,ct_weapon_mag7,t_weapon_mag7,ct_weapon_mp5sd,t_weapon_mp5sd,ct_weapon_mp7,t_weapon_mp7,ct_weapon_mp9,t_weapon_mp9,ct_weapon_negev,</p>
+                <p>
+                    t_weapon_negev,ct_weapon_nova,t_weapon_nova,ct_weapon_p90,t_weapon_p90,ct_weapon_r8revolver,t_weapon_r8revolver,ct_weapon_sawedoff,t_weapon_sawedoff,ct_weapon_scar20,t_weapon_scar20,</p>
+                <p>
+                    ct_weapon_sg553,t_weapon_sg553,ct_weapon_ssg08,t_weapon_ssg08,ct_weapon_ump45,t_weapon_ump45,ct_weapon_xm1014,t_weapon_xm1014,ct_weapon_deagle,t_weapon_deagle,ct_weapon_fiveseven,</p>
+                <p>
+                    t_weapon_fiveseven,ct_weapon_usps,t_weapon_usps,ct_weapon_p250,t_weapon_p250,ct_weapon_p2000,t_weapon_p2000,ct_weapon_tec9,t_weapon_tec9,ct_grenade_hegrenade,t_grenade_hegrenade,</p>
+                <p>
+                    ct_grenade_flashbang,t_grenade_flashbang,ct_grenade_smokegrenade,t_grenade_smokegrenade,ct_grenade_incendiarygrenade,t_grenade_incendiarygrenade,ct_grenade_molotovgrenade,</p>
+                <p>
+                    t_grenade_molotovgrenade,ct_grenade_decoygrenade,t_grenade_decoygrenade,round_winner</p>
+                <br><br>
+            </div>
+        </div>
+      -->
+    <div class="container">
+        <div class="row">
+            <h3>Ładowanie pliku z CSV do bazy danych</h3>
+            <hr>
         </div>
     </div>
-
-
-    <h3>Ładowanie pliku z CSV do bazy danych</h3>
     <div id="ladowanie">
-        <div class="row mb-3">
-            <div class="col-sm-4 themed-grid-col">
+        <div class="container">
+            <div class="row">
                 <input type="text" class="form-control" v-model="atrybut" placeholder="Scieżka do pliku">
                 <button @click="ladowanieDanych" type="button" class="btn btn-primary">Zaladuj plik</button>
             </div>
         </div>
     </div>
-  -->
+
     <div class="container">
         <div class="row">
             <div class="col"><h3>Dodanie nowego rekordu do bazy danych</h3><br>
@@ -80,7 +84,9 @@
                             <input type="text" class="form-control" v-model="bomb_planted" placeholder="bomb_planted">
                             <input type="text" class="form-control" v-model="maps" placeholder="maps">
                             <hr>
-                            <button @click="addNew" type="button" class="btn btn-primary">Dodaj nowy rekord do bazy danych </button>
+                            <button @click="addNew" type="button" class="btn btn-primary">Dodaj nowy rekord do bazy
+                                danych
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -136,8 +142,8 @@
                 <div class="col-sm-4 themed-grid-col">
                     <div class="container">
                         <div class="row">
-                            <div class="col"> <p>Nazwa atrybutu:<b>{{data.variableName}}</b></p></div>
-                            <div class="col"> <p>Wartość minimalna:<b>{{data.minValue}}</b></p></div>
+                            <div class="col"><p>Nazwa atrybutu:<b>{{data.variableName}}</b></p></div>
+                            <div class="col"><p>Wartość minimalna:<b>{{data.minValue}}</b></p></div>
                             <div class="w-100"></div>
                             <div class="col"><p>Wartość maksymalna:<b>{{data.maxValue}}</b></p></div>
                             <div class="col"><p>Wartość średnia:<b>{{data.avgValue}}</b></p></div>
@@ -174,23 +180,23 @@
                         <option>t_grenade_smokegrenade</option>
                         <option>bomb_planted</option>
                     </select>
-                    <select class="form-control"  v-model="maps" placeholder="Mapa do obliczeń">
-                    <option value="1">Cache</option>
-                    <option value="2">Dust II</option>
-                    <option value="3">Inferno</option>
-                    <option value="4">Mirage</option>
-                    <option value="5">Nuke</option>
-                    <option value="6">Overpass</option>
-                    <option value="7">Train</option>
-                    <option value="8">Vertigo</option>
+                    <select class="form-control" v-model="maps" placeholder="Mapa do obliczeń">
+                        <option value="1">Cache</option>
+                        <option value="2">Dust II</option>
+                        <option value="3">Inferno</option>
+                        <option value="4">Mirage</option>
+                        <option value="5">Nuke</option>
+                        <option value="6">Overpass</option>
+                        <option value="7">Train</option>
+                        <option value="8">Vertigo</option>
                     </select>
                     <button @click="doAction " type="button" class="btn btn-primary">Wyszukaj atrybutu</button>
                 </div>
                 <div class="col-sm-4 themed-grid-col">
                     <div class="container">
                         <div class="row">
-                            <div class="col"> <p>Nazwa atrybutu:<b>{{data.variableName}}</b></p></div>
-                            <div class="col"> <p>Wartość minimalna:<b>{{data.minValue}}</b></p></div>
+                            <div class="col"><p>Nazwa atrybutu:<b>{{data.variableName}}</b></p></div>
+                            <div class="col"><p>Wartość minimalna:<b>{{data.minValue}}</b></p></div>
                             <div class="w-100"></div>
                             <div class="col"><p>Wartość maksymalna:<b>{{data.maxValue}}</b></p></div>
                             <div class="col"><p>Wartość średnia:<b>{{data.avgValue}}</b></p></div>
@@ -209,7 +215,7 @@
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <img v-bind:src="'http://localhost:2137/pngmarker/' + maps" />
+                        <img v-bind:src="'http://localhost:2137/pngmarker/' + maps"/>
                     </div>
                 </div>
             </div>
@@ -300,19 +306,24 @@
                     <div class="container">
                         <p>Nazwa głównego atrybutu:<b>{{atrybut}}</b></p>
                         <div class="row">
-                            <div class="col"> <p>Nazwa analizowanego atrybutu:<b>{{data1.secondVariableName}}</b></p></div>
-                            <div class="col"> <p>Współczynnika korelacji:<b>{{data1.pearsonValue}}</b></p></div>
+                            <div class="col"><p>Nazwa analizowanego atrybutu:<b>{{data1.secondVariableName}}</b></p>
+                            </div>
+                            <div class="col"><p>Współczynnika korelacji:<b>{{data1.pearsonValue}}</b></p></div>
                             <div class="w-100"></div>
-                            <div class="col">   <p>Nazwa analizowanego atrybutu:<b>{{data2.secondVariableName}}</b></p></div>
-                            <div class="col"> <p>Współczynnika korelacji:<b>{{data2.pearsonValue}}</b></p></div>
+                            <div class="col"><p>Nazwa analizowanego atrybutu:<b>{{data2.secondVariableName}}</b></p>
+                            </div>
+                            <div class="col"><p>Współczynnika korelacji:<b>{{data2.pearsonValue}}</b></p></div>
                             <div class="w-100"></div>
-                            <div class="col">   <p>Nazwa analizowanego atrybutu:<b>{{data3.secondVariableName}}</b></p></div>
-                            <div class="col"> <p>Współczynnika korelacji:<b>{{data3.pearsonValue}}</b></p></div>
+                            <div class="col"><p>Nazwa analizowanego atrybutu:<b>{{data3.secondVariableName}}</b></p>
+                            </div>
+                            <div class="col"><p>Współczynnika korelacji:<b>{{data3.pearsonValue}}</b></p></div>
                             <div class="w-100"></div>
-                            <div class="col">  <p>Nazwa analizowanego atrybutu:<b>{{data4.secondVariableName}}</b></p></div>
-                            <div class="col">  <p>Współczynnika korelacji:<b>{{data4.pearsonValue}}</b></p></div>
+                            <div class="col"><p>Nazwa analizowanego atrybutu:<b>{{data4.secondVariableName}}</b></p>
+                            </div>
+                            <div class="col"><p>Współczynnika korelacji:<b>{{data4.pearsonValue}}</b></p></div>
                             <div class="w-100"></div>
-                            <div class="col"><p>Nazwa analizowanego atrybutu:<b>{{data5.secondVariableName}}</b></p></div>
+                            <div class="col"><p>Nazwa analizowanego atrybutu:<b>{{data5.secondVariableName}}</b></p>
+                            </div>
                             <div class="col"><p>Współczynnika korelacji:<b>{{data5.pearsonValue}}</b></p></div>
                         </div>
                     </div>
@@ -372,7 +383,11 @@
         <h3>Histogram użyć broni przez drużynę Terrorystów</h3>
         <canvas id="myChart2"></canvas>
         <h3>Wykres kołowy rozkładu zwycięstw</h3>
-        <div class="container" style="width: 50%"> <div class="row"><canvas id="myChart3"></canvas></div></div>
+        <div class="container" style="width: 50%">
+            <div class="row">
+                <canvas id="myChart3"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 <script>
@@ -635,7 +650,7 @@
                 data: "",
                 atrybut: "ct_players_alive",
                 maps: "1",
-                mapsurl:"http://localhost:2137/pngmarker/"+this.maps,
+                mapsurl: "http://localhost:2137/pngmarker/" + this.maps,
             },
         methods: {
             doAction() {
