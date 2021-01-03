@@ -296,8 +296,6 @@ public class RESTService {
             flashValue=10.0;
         }
 
-
-
         Query ctSmokeQuery = entityManager.createQuery("SELECT avg(ct_grenade_smokegrenade) FROM DataModel WHERE map="+maps);
         double ctSmokeValue = Double.parseDouble(ctSmokeQuery.getResultList().get(0).toString());
         Query tSmokeQuery = entityManager.createQuery("SELECT avg(t_grenade_smokegrenade) FROM DataModel WHERE map="+maps);
@@ -390,9 +388,6 @@ public class RESTService {
             smokeValue=10.0;
         }
 
-
-
-
         Query tWinQuery = entityManager.createQuery("SELECT COUNT(round_winner) FROM DataModel WHERE round_winner=1 AND map="+maps);
         double tWinValue = Double.parseDouble(tWinQuery.getResultList().get(0).toString());
 
@@ -476,18 +471,34 @@ public class RESTService {
         Query percentileQ2ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.50* @row_num) AND map="+ maps);
         Query percentileQ3ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.75* @row_num) AND map="+ maps);
         Query percentile1ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.1* @row_num) AND map="+ maps);
+
         Query percentile9ValueQuery = entityManager.createNativeQuery("SELECT " + attribute + " FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY " + attribute + ") temp WHERE temp.row_num=ROUND (0.9* @row_num) AND map="+ maps);
         double minValue = Double.parseDouble(minValueQuery.getResultList().get(0).toString());
         double maxValue = Double.parseDouble(maxValueQuery.getResultList().get(0).toString());
         double avgValue = roundAvoid(Double.parseDouble(avgValueQuery.getResultList().get(0).toString()), 2);
-        double percentileQ1Value = Double.parseDouble(percentileQ1ValueQuery.getResultList().get(0).toString());
-        double percentileQ2Value = Double.parseDouble(percentileQ2ValueQuery.getResultList().get(0).toString());
-        double percentileQ3Value = Double.parseDouble(percentileQ3ValueQuery.getResultList().get(0).toString());
-        double percentile1Value = Double.parseDouble(percentile1ValueQuery.getResultList().get(0).toString());
-        double percentile9Value = Double.parseDouble(percentile9ValueQuery.getResultList().get(0).toString());
-        double percentileIRQ = percentileQ3Value - percentileQ1Value;
-        double belowPoint = percentileQ1Value - 1.5; //* percentileIRQ;
-        double abovePoint = percentileQ3Value + 1.5; //* percentileIRQ;
+        double percentileQ1Value=0;
+        double percentileQ2Value=0;
+        double percentileQ3Value=0;
+        double percentile1Value=0;
+        double percentile9Value=0;
+        double percentileIRQ=0;
+        double belowPoint=0;
+        double abovePoint=0;
+
+        try {
+             percentileQ1Value = Double.parseDouble(percentileQ1ValueQuery.getResultList().get(0).toString());
+             percentileQ2Value = Double.parseDouble(percentileQ2ValueQuery.getResultList().get(0).toString());
+             percentileQ3Value = Double.parseDouble(percentileQ3ValueQuery.getResultList().get(0).toString());
+             percentile1Value = Double.parseDouble(percentile1ValueQuery.getResultList().get(0).toString());
+             percentile9Value = Double.parseDouble(percentile9ValueQuery.getResultList().get(0).toString());
+             percentileIRQ = percentileQ3Value - percentileQ1Value;
+             belowPoint = percentileQ1Value - 1.5; //* percentileIRQ;
+             abovePoint = percentileQ3Value + 1.5; //* percentileIRQ;
+        }
+        catch (IndexOutOfBoundsException ignore)
+        {
+        }
+
         ResponseModel responseModel = new ResponseModel(minValue, maxValue, avgValue, percentileQ1Value, percentileQ2Value, percentileQ3Value, percentileIRQ, belowPoint, abovePoint, attribute, percentile1Value, percentile9Value);
         return new ResponseEntity<>(responseModel, HttpStatus.OK);
     }

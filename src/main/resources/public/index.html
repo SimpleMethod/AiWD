@@ -15,12 +15,14 @@
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
 </head>
 <body class="py-4">
 
 <div class="container">
 
-
+<!--
     <h1>Lista atrybutów</h1><br>
     <div class="row mb-3">
         <div class="col-md-8 themed-grid-col"><p>
@@ -44,7 +46,9 @@
             <br><br>
         </div>
     </div>
-    <h1>Ładowanie pliku z CSV do bazy danych</h1>
+
+
+    <h3>Ładowanie pliku z CSV do bazy danych</h3>
     <div id="ladowanie">
         <div class="row mb-3">
             <div class="col-sm-4 themed-grid-col">
@@ -53,7 +57,7 @@
             </div>
         </div>
     </div>
-
+  -->
     <div class="container">
         <div class="row">
             <div class="col"><h3>Dodanie nowego rekordu do bazy danych</h3><br>
@@ -75,9 +79,8 @@
                             <input type="text" class="form-control" v-model="round_winner" placeholder="round_winner">
                             <input type="text" class="form-control" v-model="bomb_planted" placeholder="bomb_planted">
                             <input type="text" class="form-control" v-model="maps" placeholder="maps">
-                            <button @click="addNew" type="button" class="btn btn-primary">Dodaj nowy rekord do bazy
-                                danych
-                            </button>
+                            <hr>
+                            <button @click="addNew" type="button" class="btn btn-primary">Dodaj nowy rekord do bazy danych </button>
                         </div>
                     </div>
                 </div>
@@ -95,15 +98,16 @@
                             <input type="text" class="form-control" v-model="ct_grenade_flashbang"
                                    placeholder="ct_grenade_flashbang">
                             <input type="text" class="form-control" v-model="t_grenade_flashbang"
-                                   placeholder="ct_grenade_flashbang">
+                                   placeholder="t_grenade_flashbang">
                             <input type="text" class="form-control" v-model="ct_grenade_smokegrenade"
-                                   placeholder="ct_grenade_flashbang">
+                                   placeholder="ct_grenade_smokegrenade">
                             <input type="text" class="form-control" v-model="t_grenade_smokegrenade"
-                                   placeholder="ct_grenade_flashbang">
+                                   placeholder="t_grenade_smokegrenade">
                             <input type="text" class="form-control" v-model="round_winner"
-                                   placeholder="ct_grenade_flashbang">
+                                   placeholder="round_winner">
                             <input type="text" class="form-control" v-model="bomb_planted" placeholder="bomb_planted">
                             <input type="text" class="form-control" v-model="maps" placeholder="maps">
+                            <hr>
                             <button @click="editRecord" type="button" class="btn btn-primary">Edytuj rekord</button>
                         </div>
                     </div>
@@ -118,7 +122,15 @@
         <div id="app">
             <div class="row mb-3">
                 <div class="col-sm-4 themed-grid-col">
-                    <input type="text" class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
+                    <select class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
+                        <option>ct_players_alive</option>
+                        <option>t_players_alive</option>
+                        <option>ct_grenade_flashbang</option>
+                        <option>t_grenade_flashbang</option>
+                        <option>ct_grenade_smokegrenade</option>
+                        <option>t_grenade_smokegrenade</option>
+                        <option>bomb_planted</option>
+                    </select>
                     <button @click="doAction " type="button" class="btn btn-primary">Wyszukaj atrybutu</button>
                 </div>
                 <div class="col-sm-4 themed-grid-col">
@@ -153,12 +165,28 @@
         <div id="app1">
             <div class="row mb-3">
                 <div class="col-sm-4 themed-grid-col">
-                    <input type="text" class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
-                    <input type="text" class="form-control" v-model="mapa" placeholder="Mapa do obliczeń">
+                    <select class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
+                        <option>ct_players_alive</option>
+                        <option>t_players_alive</option>
+                        <option>ct_grenade_flashbang</option>
+                        <option>t_grenade_flashbang</option>
+                        <option>ct_grenade_smokegrenade</option>
+                        <option>t_grenade_smokegrenade</option>
+                        <option>bomb_planted</option>
+                    </select>
+                    <select class="form-control"  v-model="maps" placeholder="Mapa do obliczeń">
+                    <option value="1">Cache</option>
+                    <option value="2">Dust II</option>
+                    <option value="3">Inferno</option>
+                    <option value="4">Mirage</option>
+                    <option value="5">Nuke</option>
+                    <option value="6">Overpass</option>
+                    <option value="7">Train</option>
+                    <option value="8">Vertigo</option>
+                    </select>
                     <button @click="doAction " type="button" class="btn btn-primary">Wyszukaj atrybutu</button>
                 </div>
                 <div class="col-sm-4 themed-grid-col">
-
                     <div class="container">
                         <div class="row">
                             <div class="col"> <p>Nazwa atrybutu:<b>{{data.variableName}}</b></p></div>
@@ -180,12 +208,15 @@
                             <div class="col"><p>Punkt oddalony powyżej:<b>{{data.abovePoint}}</b></p></div>
                         </div>
                     </div>
-
+                    <div class="row mb-3">
+                        <img v-bind:src="'http://localhost:2137/pngmarker/' + maps" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!--
     <h1>"Twarze" Chernoffa dla map</h1>
     <div class="container">
         <div class="row">
@@ -203,18 +234,66 @@
         </div>
     </div>
     <hr>
-
+-->
     <div class="container">
         <h1>Wyznaczenie współczynnika korelacji liniowej Pearsona</h1>
         <div id="pcc">
             <div class="row mb-3">
                 <div class="col-sm-4 themed-grid-col">
-                    <input type="text" class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
-                    <input type="text" class="form-control" v-model="atrybut1" placeholder="Atrybut do analizy 1">
-                    <input type="text" class="form-control" v-model="atrybut2" placeholder="Atrybut do analizy 2">
-                    <input type="text" class="form-control" v-model="atrybut3" placeholder="Atrybut do analizy 3">
-                    <input type="text" class="form-control" v-model="atrybut4" placeholder="Atrybut do analizy 4">
-                    <input type="text" class="form-control" v-model="atrybut5" placeholder="Atrybut do analizy 5">
+                    <select class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
+                        <option>ct_players_alive</option>
+                        <option>t_players_alive</option>
+                        <option>ct_grenade_flashbang</option>
+                        <option>t_grenade_flashbang</option>
+                        <option>ct_grenade_smokegrenade</option>
+                        <option>t_grenade_smokegrenade</option>
+                        <option>bomb_planted</option>
+                    </select>
+                    <select class="form-control" v-model="atrybut1" placeholder="Atrybut do analizy 1">
+                        <option>ct_players_alive</option>
+                        <option>t_players_alive</option>
+                        <option>ct_grenade_flashbang</option>
+                        <option>t_grenade_flashbang</option>
+                        <option>ct_grenade_smokegrenade</option>
+                        <option>t_grenade_smokegrenade</option>
+                        <option>bomb_planted</option>
+                    </select>
+                    <select class="form-control" v-model="atrybut2" placeholder="Atrybut do analizy 2">
+                        <option>ct_players_alive</option>
+                        <option>t_players_alive</option>
+                        <option>ct_grenade_flashbang</option>
+                        <option>t_grenade_flashbang</option>
+                        <option>ct_grenade_smokegrenade</option>
+                        <option>t_grenade_smokegrenade</option>
+                        <option>bomb_planted</option>
+                    </select>
+                    <select class="form-control" v-model="atrybut3" placeholder="Atrybut do analizy 3">
+                        <option>ct_players_alive</option>
+                        <option>t_players_alive</option>
+                        <option>ct_grenade_flashbang</option>
+                        <option>t_grenade_flashbang</option>
+                        <option>ct_grenade_smokegrenade</option>
+                        <option>t_grenade_smokegrenade</option>
+                        <option>bomb_planted</option>
+                    </select>
+                    <select class="form-control" v-model="atrybut4" placeholder="Atrybut do analizy 4">
+                        <option>ct_players_alive</option>
+                        <option>t_players_alive</option>
+                        <option>ct_grenade_flashbang</option>
+                        <option>t_grenade_flashbang</option>
+                        <option>ct_grenade_smokegrenade</option>
+                        <option>t_grenade_smokegrenade</option>
+                        <option>bomb_planted</option>
+                    </select>
+                    <select class="form-control" v-model="atrybut5" placeholder="Atrybut do analizy 5">
+                        <option>ct_players_alive</option>
+                        <option>t_players_alive</option>
+                        <option>ct_grenade_flashbang</option>
+                        <option>t_grenade_flashbang</option>
+                        <option>ct_grenade_smokegrenade</option>
+                        <option>t_grenade_smokegrenade</option>
+                        <option>bomb_planted</option>
+                    </select>
                     <button @click="doAction " type="button" class="btn btn-primary">Przeprowadź analizę</button>
                 </div>
                 <div class="col-sm-2 themed-grid-col">
@@ -246,9 +325,24 @@
         <div id="linearregression">
             <div class="row mb-3">
                 <div class="col-sm-4 themed-grid-col">
-                    <input type="text" class="form-control" v-model="atrybut"
-                           placeholder="Pierwszy atrybut do regresji">
-                    <input type="text" class="form-control" v-model="atrybut1" placeholder="Drugi atrybut do regresji">
+                    <select class="form-control" v-model="atrybut" placeholder="Atrybut do analizy">
+                        <option>ct_players_alive</option>
+                        <option>t_players_alive</option>
+                        <option>ct_grenade_flashbang</option>
+                        <option>t_grenade_flashbang</option>
+                        <option>ct_grenade_smokegrenade</option>
+                        <option>t_grenade_smokegrenade</option>
+                        <option>bomb_planted</option>
+                    </select>
+                    <select class="form-control" v-model="atrybut1" placeholder="Atrybut do analizy">
+                        <option>ct_players_alive</option>
+                        <option>t_players_alive</option>
+                        <option>ct_grenade_flashbang</option>
+                        <option>t_grenade_flashbang</option>
+                        <option>ct_grenade_smokegrenade</option>
+                        <option>t_grenade_smokegrenade</option>
+                        <option>bomb_planted</option>
+                    </select>
                     <input type="text" class="form-control" v-model="atrybut2" placeholder="Wartość atrybutu X">
                     <button @click="doAction " type="button" class="btn btn-primary">Przeprowadź regresje</button>
                 </div>
@@ -278,10 +372,9 @@
         <h3>Histogram użyć broni przez drużynę Terrorystów</h3>
         <canvas id="myChart2"></canvas>
         <h3>Wykres kołowy rozkładu zwycięstw</h3>
-        <canvas id="myChart3"></canvas>
+        <div class="container" style="width: 50%"> <div class="row"><canvas id="myChart3"></canvas></div></div>
     </div>
 </div>
-
 <script>
     var jsonfile;
     $(document).ready(function () {
@@ -541,11 +634,12 @@
             {
                 data: "",
                 atrybut: "ct_players_alive",
-                mapa: "1",
+                maps: "1",
+                mapsurl:"http://localhost:2137/pngmarker/"+this.maps,
             },
         methods: {
             doAction() {
-                axios.get("http://localhost:2137/dataonmape/" + this.atrybut + "/" + this.mapa)
+                axios.get("http://localhost:2137/dataonmape/" + this.atrybut + "/" + this.maps)
                     .then(response => this.data = response.data);
             }
         }
@@ -672,6 +766,5 @@
         }
     })
 </script>
-
 </body>
 </html>

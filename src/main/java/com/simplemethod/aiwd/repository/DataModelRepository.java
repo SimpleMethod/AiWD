@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -26,7 +27,7 @@ public interface DataModelRepository  extends JpaRepository<DataModel, Long> {
     DataModel getPercentile(@Param("percentile") double percentile,@Param("args") String args);
 
     @Query(value = "SELECT :args FROM (SELECT t.*,@row_num \\:=@row_num+1 AS row_num FROM DataModel t,(SELECT @row_num \\:=0)counter ORDER BY :args) temp WHERE temp.row_num=ROUND (:percentile* @row_num)", nativeQuery = true)
-    public String getPercentileValue(@Param("percentile") double percentile,@Param("args") String args );
+    Optional<String> getPercentileValue(@Param("percentile") double percentile, @Param("args") String args );
 
     @Query(value = "SELECT ct_armor FROM DataModel")
     public List<BigDecimal> getAllByct_armor();
